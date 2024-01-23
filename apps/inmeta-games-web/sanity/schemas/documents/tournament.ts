@@ -1,4 +1,4 @@
-import { defineField, defineType } from "sanity";
+import { defineArrayMember, defineField, defineType } from "sanity";
 
 export default defineType({
   type: "document",
@@ -40,9 +40,9 @@ export default defineType({
       name: "games",
       title: "Spill",
       type: "array",
-      of: [{ type: "game" }],
+      of: [defineArrayMember({ type: "game" })],
       group: "games",
-    }),
+    } as any),
 
     defineField({
       name: "pointRules",

@@ -1,4 +1,4 @@
-import { defineField, defineType } from "sanity";
+import { defineArrayMember, defineField, defineType } from "sanity";
 
 export default defineType({
   type: "object",
@@ -29,7 +29,7 @@ export default defineType({
       name: "name",
       title: "Navn",
       group: "info",
-    }),
+    } as any),
     defineField({
       type: "text",
       name: "description",
@@ -49,9 +49,9 @@ export default defineType({
       type: "array",
       name: "organiziers",
       title: "Arrangører",
-      of: [{ type: "reference", to: [{ type: "person" }] }],
+      of: [defineArrayMember({ type: "reference", to: [{ type: "person" }] })],
       group: "info",
-    }),
+    } as any),
     defineField({
       type: "boolean",
       name: "isOrganizersParticipating",
@@ -64,9 +64,9 @@ export default defineType({
       type: "array",
       name: "participants",
       title: "Deltakere",
-      of: [{ type: "reference", to: [{ type: "person" }] }],
+      of: [defineArrayMember({ type: "reference", to: [{ type: "person" }] })],
       group: "participants",
-    }),
+    } as any),
 
     defineField({
       type: "boolean",
@@ -79,30 +79,30 @@ export default defineType({
       type: "array",
       name: "firstPlace",
       title: "Første plass",
-      of: [{ type: "reference", to: [{ type: "person" }] }],
+      of: [defineArrayMember({ type: "reference", to: [{ type: "person" }] })],
       group: "results",
-    }),
+    } as any),
     defineField({
       type: "array",
       name: "secondPlace",
       title: "Andre plass",
-      of: [{ type: "reference", to: [{ type: "person" }] }],
+      of: [defineArrayMember({ type: "reference", to: [{ type: "person" }] })],
       group: "results",
-    }),
+    } as any),
     defineField({
       type: "array",
       name: "thirdPlace",
       title: "Tredje plass",
-      of: [{ type: "reference", to: [{ type: "person" }] }],
+      of: [defineArrayMember({ type: "reference", to: [{ type: "person" }] })],
       group: "results",
-    }),
+    } as any),
 
     defineField({
       type: "array",
       name: "spectators",
       title: "Tilskuere",
-      of: [{ type: "reference", to: [{ type: "person" }] }],
+      of: [defineArrayMember({ type: "reference", to: [{ type: "person" }] })],
       group: "spectators",
-    }),
+    } as any),
   ],
 });

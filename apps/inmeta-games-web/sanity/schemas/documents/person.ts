@@ -30,7 +30,7 @@ export default defineType({
       lastName: "lastName",
       image: "image",
     },
-    prepare(value, viewOptions) {
+    prepare(value) {
       const { firstName, lastName, image } = value;
 
       return {
