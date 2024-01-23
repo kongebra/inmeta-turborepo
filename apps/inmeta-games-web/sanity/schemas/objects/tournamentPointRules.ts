@@ -1,0 +1,65 @@
+import { defineType, defineField } from "sanity";
+
+export default defineType({
+  name: "tournamentPointRules",
+  title: "Poengregler",
+  type: "object",
+  fields: [
+    defineField({
+      type: "number",
+      name: "participation",
+      title: "Deltakelse",
+      description: "Poeng for å delta",
+      validation: (Rule) => Rule.required(),
+      initialValue: 3,
+    }),
+    defineField({
+      type: "number",
+      name: "firstPlace",
+      title: "1. plass",
+      description: "Poeng for å komme på 1. plasse",
+      validation: (Rule) => Rule.required(),
+      initialValue: 3,
+    }),
+    defineField({
+      type: "number",
+      name: "secondPlace",
+      title: "2. plass",
+      description: "Poeng for å komme på 2. plasse",
+      validation: (Rule) => Rule.required(),
+      initialValue: 2,
+    }),
+    defineField({
+      type: "number",
+      name: "thirdPlace",
+      title: "3. plass",
+      description: "Poeng for å komme på 3. plasse",
+      validation: (Rule) => Rule.required(),
+      initialValue: 1,
+    }),
+    defineField({
+      type: "number",
+      name: "organizedWithParticipation",
+      title: "Arrangert med deltakelse",
+      description: "Poeng for å arrangere, med deltakelse",
+      validation: (Rule) => Rule.required(),
+      initialValue: 1,
+    }),
+    defineField({
+      type: "number",
+      name: "organizedWithoutParticipation",
+      title: "Arrangert uten deltakelse",
+      description: "Poeng for å arrangere, uten deltakelse",
+      validation: (Rule) => Rule.required(),
+      initialValue: 3,
+    }),
+    defineField({
+      type: "number",
+      name: "spectator",
+      title: "Tilskuer",
+      description: "Poeng for å være tilskuer",
+      validation: (Rule) => Rule.required(),
+      initialValue: 1,
+    }),
+  ],
+});
