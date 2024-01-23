@@ -1,10 +1,9 @@
+import Heading from "@/components/heading";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { fetchTournamentsList } from "@/lib/sanity/queries";
 import { unstable_noStore } from "next/cache";
-import tournament from "../../../sanity/schemas/documents/tournament";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
-import Heading from "@/components/heading";
 
 export default async function Home() {
   unstable_noStore();

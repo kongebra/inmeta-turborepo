@@ -1,6 +1,5 @@
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { TournamentDetails } from "@/lib/sanity/types";
 import React from "react";
 
 const TournamentPointSystemCardSkeleton: React.FC = () => {

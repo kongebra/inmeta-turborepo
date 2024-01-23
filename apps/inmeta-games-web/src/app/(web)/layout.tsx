@@ -1,9 +1,9 @@
+import ThemeToggler from "@/components/theme-toggler";
+import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
 import { Inter as FontSans } from "next/font/google";
 import "./globals.css";
-import { cn } from "@/lib/utils";
 import Providers from "./providers";
-import ThemeToggler from "@/components/theme-toggler";
 
 export const fontSans = FontSans({
   subsets: ["latin"],

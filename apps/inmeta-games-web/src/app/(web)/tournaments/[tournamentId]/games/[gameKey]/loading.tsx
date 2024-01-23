@@ -1,10 +1,5 @@
-import Heading from "@/components/heading";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Skeleton } from "@/components/ui/skeleton";
-import Link from "next/link";
-import React from "react";
 import PlayerItemsCard from "./_components/PlayerItemsCard";
-import { urlForImage } from "@/lib/sanity";
 
 export default function Loading() {
   return (

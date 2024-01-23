@@ -1,4 +1,3 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
   Table,
@@ -8,9 +7,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { urlForImage } from "@/lib/sanity";
-import { TournamentDetails } from "@/lib/sanity/types";
-import { calculateScoreboard } from "@/lib/utils";
 import React from "react";
 
 const TournamentScoreboardTableSkeleton: React.FC = () => {
