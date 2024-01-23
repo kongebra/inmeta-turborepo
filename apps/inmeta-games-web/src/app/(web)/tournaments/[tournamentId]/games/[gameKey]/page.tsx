@@ -87,30 +87,30 @@ export default async function TournamentGamesPage({
 
         <PlayerItemsCard
           title="Førsteplass"
-          description="3 poeng for førsteplass"
+          description={`${tournament.pointRules.firstPlace} poeng for førsteplass`}
           players={game.firstPlace}
           className="border-amber-500 border-4"
         />
         <PlayerItemsCard
           title="Andreplass"
-          description="2 poeng for andreplass"
+          description={`${tournament.pointRules.secondPlace} poeng for andreplass`}
           players={game.secondPlace}
           className="border-slate-300 border-4"
         />
         <PlayerItemsCard
           title="Tredjeplass"
-          description="1 poeng for tredjeplass"
+          description={`${tournament.pointRules.thirdPlace} poeng for tredjeplass`}
           players={game.thirdPlace}
           className="border-amber-800 border-4"
         />
         <PlayerItemsCard
           title="Deltakere"
-          description="3 poeng for deltakelse"
+          description={`${tournament.pointRules.participation} poeng for deltakelse`}
           players={game.participants}
         />
         <PlayerItemsCard
           title="Tilskuere"
-          description="1 poeng for tilskuere"
+          description={`${tournament.pointRules.spectator} poeng for tilskuere`}
           players={game.spectators}
         />
       </div>
