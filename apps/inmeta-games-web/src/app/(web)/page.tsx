@@ -12,7 +12,7 @@ export default async function Home() {
   return (
     <main>
       <div className="max-w-screen-sm mx-auto p-8 min-h-screen bg-black/5 dark:bg-white/5">
-        <Heading className="mb-8">Velkommen til Inmeta Games</Heading>
+        <Heading className="mb-8">Velkommen til Inmeta Games!</Heading>
 
         <Heading className="mb-8" size="h2">
           Turneringer
