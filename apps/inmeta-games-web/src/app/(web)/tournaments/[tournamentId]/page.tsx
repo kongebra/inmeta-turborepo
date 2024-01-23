@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import TournamentGamesList from "./_components/TournamentGamesList";
 import TournamentPointSystemCard from "./_components/TournamentPointSystemCard";
 import TournamentScoreboardTable from "./_components/TournamentScoreboardTable";
+import { sleep } from "@/lib/utils";
 
 type Params = {
   tournamentId: string;

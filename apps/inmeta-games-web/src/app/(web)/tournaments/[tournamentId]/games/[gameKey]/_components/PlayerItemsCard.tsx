@@ -9,12 +9,14 @@ import { Person } from "@/lib/sanity/types";
 import React from "react";
 import PlayerItem from "./PlayerItem";
 import { cn } from "@/lib/utils";
+import { Skeleton } from "@/components/ui/skeleton";
 
 type Props = {
   title: React.ReactNode;
   description: React.ReactNode;
   players: Person[] | null;
   className?: string;
+  skeleton?: boolean;
 };
 
 const PlayerItemsCard: React.FC<Props> = ({
@@ -22,19 +24,32 @@ const PlayerItemsCard: React.FC<Props> = ({
   description,
   players,
   className,
+  skeleton,
 }) => {
   return (
     <Card className={cn("mb-8", className)}>
       <CardHeader>
-        <CardTitle>{title}</CardTitle>
-        <CardDescription>{description}</CardDescription>
+        <CardTitle>
+          {skeleton ? <Skeleton className="h-6 w-32" /> : title}
+        </CardTitle>
+        <CardDescription>
+          {skeleton ? <Skeleton className="h-4 w-64" /> : description}
+        </CardDescription>
       </CardHeader>
       <CardContent>
-        <div className="flex flex-wrap gap-8">
-          {players?.map((player) => (
-            <PlayerItem key={player._id} player={player} />
-          ))}
-        </div>
+        {skeleton ? (
+          <div className="flex flex-wrap gap-8">
+            <PlayerItem skeleton />
+            <PlayerItem skeleton />
+            <PlayerItem skeleton />
+          </div>
+        ) : (
+          <div className="flex flex-wrap gap-8">
+            {players?.map((player) => (
+              <PlayerItem key={player._id} player={player} />
+            ))}
+          </div>
+        )}
       </CardContent>
     </Card>
   );

@@ -1,12 +1,9 @@
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
 import { TournamentDetails } from "@/lib/sanity/types";
 import React from "react";
 
-type Props = {
-  readonly tournament: TournamentDetails;
-};
-
-const TournamentPointSystemCard: React.FC<Props> = ({ tournament }) => {
+const TournamentPointSystemCardSkeleton: React.FC = () => {
   return (
     <Card className="mb-8">
       <CardHeader>
@@ -15,29 +12,43 @@ const TournamentPointSystemCard: React.FC<Props> = ({ tournament }) => {
       <CardContent>
         <dl className="grid grid-cols-2 lg:grid-cols-4 space-y-1">
           <dt className="font-semibold">1. plass</dt>
-          <dd>{tournament.pointRules.firstPlace} poeng</dd>
+          <dd>
+            <Skeleton className="h-6 w-32" />
+          </dd>
 
           <dt className="font-semibold">2. plass</dt>
-          <dd>{tournament.pointRules.secondPlace} poeng</dd>
+          <dd>
+            <Skeleton className="h-6 w-32" />
+          </dd>
 
           <dt className="font-semibold">3. plass</dt>
-          <dd>{tournament.pointRules.thirdPlace} poeng</dd>
+          <dd>
+            <Skeleton className="h-6 w-32" />
+          </dd>
 
           <dt className="font-semibold">Arrangør (med deltakelse)</dt>
-          <dd>{tournament.pointRules.organizedWithParticipation} poeng</dd>
+          <dd>
+            <Skeleton className="h-6 w-32" />
+          </dd>
 
           <dt className="font-semibold">Arrangør (uten deltakelse)</dt>
-          <dd>{tournament.pointRules.organizedWithoutParticipation} poeng</dd>
+          <dd>
+            <Skeleton className="h-6 w-32" />
+          </dd>
 
           <dt className="font-semibold">Deltakelse</dt>
-          <dd>{tournament.pointRules.participation} poeng</dd>
+          <dd>
+            <Skeleton className="h-6 w-32" />
+          </dd>
 
           <dt className="font-semibold">Tilskuer</dt>
-          <dd>{tournament.pointRules.spectator} poeng</dd>
+          <dd>
+            <Skeleton className="h-6 w-32" />
+          </dd>
         </dl>
       </CardContent>
     </Card>
   );
 };
 
-export default TournamentPointSystemCard;
+export default TournamentPointSystemCardSkeleton;

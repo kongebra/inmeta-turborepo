@@ -1,15 +1,11 @@
 import Heading from "@/components/heading";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { fetchTournamentDetails } from "@/lib/sanity/queries";
-import { calculateScoreboard } from "@/lib/utils";
 import { unstable_noStore } from "next/cache";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import React from "react";
-import PlayerItem from "./_components/PlayerItem";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { urlForImage } from "@/lib/sanity";
 import PlayerItemsCard from "./_components/PlayerItemsCard";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { urlForImage } from "../../../../../../../sanity/lib/image";
 
 type Params = {
   tournamentId: string;
@@ -49,9 +45,11 @@ export default async function TournamentGamesPage({
   return (
     <main>
       <div className="container py-8">
-        <Link className="mb-8" href={`/tournaments/${tournamentId}`}>
-          &larr; Gå tilbake til turneringen
-        </Link>
+        <div className="mb-8">
+          <Link href={`/tournaments/${tournamentId}`}>
+            &larr; Gå tilbake til turneringen
+          </Link>
+        </div>
 
         <Heading className="mb-8">{game.name}</Heading>
 
