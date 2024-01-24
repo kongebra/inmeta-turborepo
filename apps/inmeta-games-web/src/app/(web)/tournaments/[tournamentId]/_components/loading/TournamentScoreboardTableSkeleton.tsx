@@ -14,7 +14,7 @@ const TournamentScoreboardTableSkeleton: React.FC = () => {
     <Table>
       <TableHeader>
         <TableRow>
-          <TableHead>#</TableHead>
+          <TableHead title="Plassering">#</TableHead>
           <TableHead>Bilde</TableHead>
           <TableHead>Navn</TableHead>
           <TableHead className="hidden lg:table-cell">Deltakelser</TableHead>
@@ -41,10 +41,10 @@ const TournamentScoreboardTableSkeleton: React.FC = () => {
               <TableCell>
                 <Skeleton className="h-10 w-10 rounded-full" />
               </TableCell>
-              <TableCell>
+              <TableCell className="hidden lg:table-cell">
                 <Skeleton className="h-5 w-32" />
               </TableCell>
-              <TableCell>
+              <TableCell className="hidden lg:table-cell">
                 <Skeleton className="h-5 w-5" />
               </TableCell>
               <TableCell>

@@ -23,7 +23,7 @@ const TournamentScoreboardTable: React.FC<Props> = ({ tournament }) => {
     <Table>
       <TableHeader>
         <TableRow>
-          <TableHead>#</TableHead>
+          <TableHead title="Plassering">#</TableHead>
           <TableHead>Bilde</TableHead>
           <TableHead>Navn</TableHead>
           <TableHead className="hidden lg:table-cell">Deltakelser</TableHead>
