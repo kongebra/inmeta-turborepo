@@ -110,3 +110,17 @@ export type Person = {
   lastName: string;
   image: SanityImage;
 };
+
+export type PlayerDetails = Person & {
+  tournaments: {
+    _id: string;
+    name: string;
+    slug: SanitySlug;
+    games: {
+      _key: string;
+      name: string;
+      placement: number;
+      organizer: boolean;
+    }[];
+  }[];
+};

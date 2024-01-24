@@ -189,3 +189,13 @@ export function calculatePlayerScore(
     stats.spectatorCount * rules.spectator
   );
 }
+
+export function sortPeople(a: Person, b: Person) {
+  const firstName = a.firstName.localeCompare(b.firstName);
+
+  if (firstName === 0) {
+    return a.lastName.localeCompare(b.lastName);
+  }
+
+  return firstName;
+}
