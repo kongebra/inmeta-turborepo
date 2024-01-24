@@ -30,7 +30,7 @@ export default async function PlayersPage() {
             return (
               <Link
                 key={player._id}
-                className="flex flex-col gap-4 bg-slate-50 hover:bg-slate-200 p-2 rounded-md transition-colors"
+                className="flex flex-col gap-4 dark:bg-slate-700 dark:hover:bg-slate-800 bg-slate-50 hover:bg-slate-200 p-2 rounded-md transition-colors"
                 href={`/players/${player._id}`}
               >
                 <Image
