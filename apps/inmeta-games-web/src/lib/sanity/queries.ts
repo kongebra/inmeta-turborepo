@@ -21,7 +21,6 @@ export const fetchTournamentDetails = async (tournamentId: string) => {
         "secondPlace": secondPlace[]->,
         "thirdPlace": thirdPlace[]->,
         "spectators": spectators[]->,
-          
       }
     }`;
 

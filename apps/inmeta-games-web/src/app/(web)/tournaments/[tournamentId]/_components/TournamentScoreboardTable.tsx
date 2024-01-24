@@ -61,8 +61,12 @@ const TournamentScoreboardTable: React.FC<Props> = ({ tournament }) => {
                 </Avatar>
               </TableCell>
               <TableCell>{fullName}</TableCell>
-              <TableCell>{item.participations}</TableCell>
-              <TableCell>{item.spectatorCount}</TableCell>
+              <TableCell className="hidden lg:table-cell">
+                {item.participations}
+              </TableCell>
+              <TableCell className="hidden lg:table-cell">
+                {item.spectatorCount}
+              </TableCell>
               <TableCell
                 title={`${item.firstPlaces} førsteplasser. ${item.secondPlaces} andreplasser. ${item.thirdPlaces} tredjeplasser`}
                 className="font-mono hidden lg:table-cell"

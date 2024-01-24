@@ -6,6 +6,7 @@ import TournamentGamesList from "./_components/TournamentGamesList";
 import TournamentPointSystemCard from "./_components/TournamentPointSystemCard";
 import TournamentScoreboardTable from "./_components/TournamentScoreboardTable";
 import { sleep } from "@/lib/utils";
+import { Metadata } from "next";
 
 type Params = {
   tournamentId: string;
@@ -21,10 +22,13 @@ export async function generateMetadata({ params: { tournamentId } }: Props) {
     return notFound();
   }
 
+  const gameNames = tournament.games.map((game) => game.name);
+
   return {
     title: `${tournament.name} - Inmeta Games`,
     description: `Resultater for ${tournament.name}`,
-  };
+    keywords: [tournament.name, ...gameNames, "inmeta"],
+  } satisfies Metadata;
 }
 
 export default async function TournamentPage({
@@ -41,6 +45,10 @@ export default async function TournamentPage({
     <main className="">
       <div className="container py-8">
         <Heading className="mb-8">{tournament.name}</Heading>
+
+        <Heading className="mb-8" size="h2">
+          Poengsystem
+        </Heading>
 
         <TournamentPointSystemCard tournament={tournament} />
 

@@ -9,7 +9,7 @@ const ThemeToggler = () => {
   const { setTheme, resolvedTheme } = useTheme();
 
   return (
-    <div className="fixed bottom-0 w-full flex justify-end pb-8 pr-8">
+    <div className="fixed bottom-0 w-full flex justify-end pb-4 pr-4 lg:pb-8 lg:pr-8">
       <Button
         type="button"
         variant="outline"
