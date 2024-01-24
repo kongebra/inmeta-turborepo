@@ -10,6 +10,7 @@ import {
 import { urlForImage } from "@/lib/sanity";
 import { TournamentDetails } from "@/lib/sanity/types";
 import { calculateScoreboard } from "@/lib/utils";
+import Image from "next/image";
 import React from "react";
 
 type Props = {
@@ -47,16 +48,22 @@ const TournamentScoreboardTable: React.FC<Props> = ({ tournament }) => {
             0
           )}${item.player.lastName.charAt(0)}`;
 
+          const imageSrc = urlForImage(item.player.image);
+
           return (
             <TableRow key={item.player._id}>
               <TableCell className="font-bold">{item.rank}</TableCell>
               <TableCell>
                 <Avatar>
-                  <AvatarImage
-                    src={urlForImage(item.player.image)}
-                    alt={fullName}
-                    className="grayscale hover:invert transition-all"
-                  />
+                  <AvatarImage asChild src={imageSrc}>
+                    <Image
+                      src={imageSrc}
+                      alt={fullName}
+                      width={40}
+                      height={40}
+                      className="grayscale hover:invert transition-all"
+                    />
+                  </AvatarImage>
                   <AvatarFallback>{initials}</AvatarFallback>
                 </Avatar>
               </TableCell>

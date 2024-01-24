@@ -6,6 +6,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { urlForImage } from "@/lib/sanity";
 import PlayerItemsCard from "./_components/PlayerItemsCard";
+import Image from "next/image";
 
 type Params = {
   tournamentId: string;
@@ -52,6 +53,16 @@ export default async function TournamentGamesPage({
         </div>
 
         <Heading className="mb-8">{game.name}</Heading>
+
+        {!!game.image && (
+          <Image
+            src={urlForImage(game.image)}
+            alt={game.name}
+            width={512}
+            height={512}
+            className="mb-8 rounded-md"
+          />
+        )}
 
         <div className="grid grid-cols-12 gap-8 mb-8">
           <dl className="col-span-12 lg:col-span-4">

@@ -2,14 +2,31 @@ import { groq } from "next-sanity";
 import { client } from ".";
 import { Tournament, TournamentDetails } from "./types";
 
+/**
+ * This has a revalidate of 1 hour
+ * @returns
+ */
 export const fetchTournamentsList = async () => {
   const query = groq`*[ _type == "tournament" ][]`;
 
-  const result = await client.fetch<Tournament[]>(query);
+  const result = await client.fetch<Tournament[]>(
+    query,
+    {},
+    {
+      next: {
+        revalidate: 3600,
+      },
+    }
+  );
 
   return result;
 };
 
+/**
+ * This has a revalidate of 15 minutes
+ * @param tournamentId
+ * @returns
+ */
 export const fetchTournamentDetails = async (tournamentId: string) => {
   const query = groq`*[_type == "tournament" && _id == $tournamentId][0] {
       ...,
@@ -24,9 +41,17 @@ export const fetchTournamentDetails = async (tournamentId: string) => {
       }
     }`;
 
-  const result = await client.fetch<TournamentDetails | null>(query, {
-    tournamentId,
-  });
+  const result = await client.fetch<TournamentDetails | null>(
+    query,
+    {
+      tournamentId,
+    },
+    {
+      next: {
+        revalidate: 900,
+      },
+    }
+  );
 
   return result;
 };
