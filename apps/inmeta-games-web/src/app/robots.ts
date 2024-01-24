@@ -9,6 +9,10 @@ export default function robots(): MetadataRoute.Robots {
         disallow: "/_next/",
       },
     ],
-    sitemap: `${process.env.VERCEL_URL ?? "http://localhost:3000"}/sitemap.xml`,
+    sitemap: `${
+      process.env.VERCEL_URL
+        ? `https://${process.env.VERCEL_URL}`
+        : `http://localhost:3000`
+    }/sitemap.xml`,
   };
 }
