@@ -18,6 +18,11 @@ export default function robots(): MetadataRoute.Robots {
         userAgent: "Googlebot",
         allow: ["/"],
       },
+      {
+        userAgent: "DiscJaktBot",
+        allow: ["/"],
+        crawlDelay: 5,
+      },
     ],
     sitemap: `${baseUrl}/sitemap.xml`,
   };
