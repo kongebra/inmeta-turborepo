@@ -2,14 +2,14 @@ const cspHeader = `
     default-src 'self';
     script-src 'self' 'unsafe-eval' 'unsafe-inline';
     style-src 'self' 'unsafe-inline';
-    img-src 'self' cdn.sanity.io blob: data:;
+    img-src 'self' avatars.githubusercontent.com cdn.sanity.io blob: data:;
     font-src 'self';
     object-src 'none';
     base-uri 'self';
     form-action 'self';
     frame-ancestors 'none';
     media-src 'self' cdn.sanity.io;
-    connect-src 'self' https://jhhsx3kh.apicdn.sanity.io wss://jhhsx3kh.api.sanity.io cdn.sanity.io;
+    connect-src 'self' https://jhhsx3kh.api.sanity.io wss://jhhsx3kh.api.sanity.io cdn.sanity.io;
     block-all-mixed-content;
     upgrade-insecure-requests;
 `;
