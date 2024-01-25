@@ -1,4 +1,5 @@
 import {
+  fetchPlayers,
   fetchTournamentDetails,
   fetchTournamentsList,
 } from "@/lib/sanity/queries";
@@ -7,7 +8,10 @@ import { MetadataRoute } from "next";
 const baseUrl = process.env.VERCEL_URL ?? "http://localhost:3000";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const tournaments = await fetchTournamentsList();
+  const [tournaments, players] = await Promise.all([
+    fetchTournamentsList(),
+    fetchPlayers(),
+  ]);
 
   const tournamentSitemaps: MetadataRoute.Sitemap[] = await Promise.all(
     tournaments.map(async (tournament) => {
@@ -20,7 +24,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       const games = details.games.map((game) => ({
         url: `${baseUrl}/tournaments/${details._id}/games/${game._key}`,
         lastModified: details._updatedAt ?? new Date(),
-        changeFrequency: "yearly",
+        changeFrequency: "monthly",
         priority: 1,
       })) satisfies MetadataRoute.Sitemap;
 
@@ -28,7 +32,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         {
           url: `${baseUrl}/tournaments/${details._id}`,
           lastModified: details._updatedAt ?? new Date(),
-          changeFrequency: "yearly",
+          changeFrequency: "monthly",
           priority: 1,
         },
       ] satisfies MetadataRoute.Sitemap;
@@ -38,6 +42,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   );
 
   const tournamentSitemapsFlatten = tournamentSitemaps.flat();
+
+  const playersSitemaps: MetadataRoute.Sitemap = players.map((player) => {
+    return {
+      url: `${baseUrl}/players/${player._id}`,
+      lastModified: player._updatedAt ?? new Date(),
+      changeFrequency: "monthly",
+      priority: 1,
+    };
+  });
 
   return [
     {
@@ -52,12 +65,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "monthly",
       priority: 0.8,
     },
+    ...tournamentSitemapsFlatten,
     {
       url: `${baseUrl}/players`,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.8,
     },
-    ...tournamentSitemapsFlatten,
+    ...playersSitemaps,
   ];
 }
