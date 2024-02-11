@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { Spond, getAcceptedFromSpondEvent } from "@inmeta/spond";
 
 export async function GET(req: Request) {
-  const spond = new Spond("sveindani@gmail.com", "Lita2020!");
+  const spond = new Spond("<email>", "<password>");
   await spond.login();
 
   const inmetaGroupId = "D1B20C683F314907ABA283D8F3E067B4";
