@@ -51,8 +51,8 @@ importers:
         specifier: ^3.3.1
         version: 3.3.1
       lucide-react:
-        specifier: ^0.314.0
-        version: 0.314.0(react@18.2.0)
+        specifier: ^0.324.0
+        version: 0.324.0(react@18.2.0)
       next:
         specifier: 14.1.0
         version: 14.1.0(@babel/core@7.23.7)(react-dom@18.2.0)(react@18.2.0)
@@ -274,8 +274,8 @@ importers:
         specifier: ^2.1.0
         version: 2.1.0
       lucide-react:
-        specifier: ^0.314.0
-        version: 0.314.0(react@18.2.0)
+        specifier: ^0.324.0
+        version: 0.324.0(react@18.2.0)
       react-hook-form:
         specifier: ^7.50.1
         version: 7.50.1(react@18.2.0)
@@ -6652,8 +6652,8 @@ packages:
     dependencies:
       yallist: 4.0.0
 
-  /lucide-react@0.314.0(react@18.2.0):
-    resolution: {integrity: sha512-c2zOW7TOyKxPCaSs1og2lFdoI3SR4iii3yrZJU2Zpdc78nOw4fUmrcFNultaCiwZcr4CyiKdzjMdvKNlBBk+UQ==}
+  /lucide-react@0.324.0(react@18.2.0):
+    resolution: {integrity: sha512-Wum6XwgJNXbOIEqaGfVHPrnC8grYmChbjGQiaGVwt54FZWttFosW3jbBxQXTXgAqHNy54K7kwOL3u+uymnWuCw==}
     peerDependencies:
       react: ^16.5.1 || ^17.0.0 || ^18.0.0
     dependencies:
