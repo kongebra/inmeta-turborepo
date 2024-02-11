@@ -1,8 +1,9 @@
-import { defineConfig } from "tsup";
+import { defineConfig, type Options } from "tsup";
 
-export default defineConfig({
-  entry: ["src/index.ts"],
-  splitting: false,
-  sourcemap: true,
+export default defineConfig((options: Options) => ({
+  entryPoints: ["src/index.ts"],
   clean: true,
-});
+  dts: true,
+  format: ["cjs"],
+  ...options,
+}));
