@@ -6,6 +6,7 @@ import { Input } from "@inmeta/ui/input";
 import { useState } from "react";
 import { useTournamentStore } from "../store/tournament";
 import { cn } from "@inmeta/ui/lib/utils";
+import FetchSpondParticipants from "./fetch-spond-participants";
 
 export default function TournamentParticipantsCard() {
   const format = useTournamentStore((state) => state.format);
@@ -33,16 +34,7 @@ export default function TournamentParticipantsCard() {
     <Card>
       <CardHeader className="flex flex-row justify-between items-center">
         <CardTitle>{format === "individual" ? "Players" : "Teams"}</CardTitle>
-        <Button
-          type="button"
-          variant="secondary"
-          size="sm"
-          onClick={async () => {
-            console.log("hent fra spond");
-          }}
-        >
-          Spond
-        </Button>
+        {format === "individual" ? <FetchSpondParticipants /> : null}
       </CardHeader>
       <CardContent>
         <div className="mb-4">
