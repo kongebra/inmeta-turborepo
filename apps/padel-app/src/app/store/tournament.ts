@@ -38,6 +38,7 @@ export interface Round {
 export type TournamentType = "americano" | "mexicano";
 export type ScoringType = "11" | "16" | "21" | "24";
 export type TournamentFormat = "individual" | "team";
+export type TournamentStatus = "settings" | "playing" | "finished";
 
 export interface TournamentState {
   type: TournamentType;
@@ -59,6 +60,10 @@ export interface TournamentState {
   courts: Court[];
   addCourt: (name: string) => void;
   removeCourt: (id: string) => void;
+
+  status: TournamentStatus;
+  roundNumber: number;
+  startTournament: () => void;
 }
 
 export const useTournamentStore = create<
@@ -106,7 +111,18 @@ export const useTournamentStore = create<
         }));
       },
 
-      courts: [],
+      courts: [
+        {
+          id: uuid(),
+          name: "Bane 1",
+          color: "blue",
+        },
+        {
+          id: uuid(),
+          name: "Bane 2",
+          color: "blue",
+        },
+      ],
       addCourt: (name) => {
         set((state) => ({
           courts: [
@@ -138,6 +154,10 @@ export const useTournamentStore = create<
           ],
         }));
       },
+
+      status: "settings",
+      roundNumber: 0,
+      startTournament: () => {},
     }),
     {
       name: "tournament-storage",

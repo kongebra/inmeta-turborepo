@@ -40,7 +40,7 @@ export default function TournamentParticipantsCard() {
         <div className="mb-4">
           <div className="flex items-center gap-2 mb-1">
             <Input
-              placeholder="Add court"
+              placeholder={format === "individual" ? "Add player" : "Add team"}
               value={value}
               className={cn({
                 "border-destructive": !!error,
