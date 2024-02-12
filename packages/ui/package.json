@@ -13,7 +13,7 @@
   "devDependencies": {
     "@inmeta/eslint-config": "workspace:*",
     "@inmeta/typescript-config": "workspace:*",
-    "@types/node": "^20.11.16",
+    "@types/node": "^20.11.17",
     "@types/react": "^18.2.55",
     "autoprefixer": "^10.0.1",
     "postcss": "^8.4.35",
