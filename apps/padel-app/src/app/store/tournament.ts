@@ -5,12 +5,7 @@ import { v4 as uuid } from "uuid";
 export interface Player {
   id: string;
   name: string;
-  placement: number | undefined;
   scores: number[];
-  totalScore: number;
-  wins: boolean[];
-  playedAgainstCounters: Record<string, number>;
-  playedWithCounters: Record<string, number>;
 }
 
 export interface Team {
@@ -30,9 +25,8 @@ export interface Court {
 }
 
 export interface Round {
-  isFinal: boolean;
+  id: string;
   matches: Match[];
-  passingPlayers: unknown[];
 }
 
 export type TournamentType = "americano" | "mexicano";
@@ -147,9 +141,8 @@ export const useTournamentStore = create<
           rounds: [
             ...state.rounds,
             {
-              isFinal: false,
+              id: uuid(),
               matches: [],
-              passingPlayers: [],
             },
           ],
         }));
@@ -157,7 +150,18 @@ export const useTournamentStore = create<
 
       status: "settings",
       roundNumber: 0,
-      startTournament: () => {},
+      startTournament: () => {
+        set((state) => {
+          if (state.type === "americano" && state.format === "individual") {
+          }
+
+          return {
+            ...state,
+            status: "playing",
+            roundNumber: 1,
+          };
+        });
+      },
     }),
     {
       name: "tournament-storage",

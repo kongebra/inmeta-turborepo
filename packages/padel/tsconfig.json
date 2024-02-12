@@ -1,0 +1,10 @@
+{
+  "extends": "@inmeta/typescript-config/base.json",
+  "compilerOptions": {
+    "lib": ["ES2015"],
+    "outDir": "./dist",
+    "types": ["node", "jest"],
+  },
+  "include": ["**/*.ts"],
+  "exclude": ["node_modules", "dist"],
+}
