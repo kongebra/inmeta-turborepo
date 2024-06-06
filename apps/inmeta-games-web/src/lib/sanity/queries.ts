@@ -14,7 +14,7 @@ export const fetchTournamentsList = async () => {
     {},
     {
       next: {
-        revalidate: 3600,
+        revalidate: 60,
       },
     }
   );
@@ -64,7 +64,7 @@ export const fetchPlayers = async () => {
     {},
     {
       next: {
-        revalidate: 600,
+        revalidate: 60,
       },
     }
   );
@@ -100,7 +100,7 @@ export const fetchPlayerDetails = async (playerId: string) => {
     { playerId },
     {
       next: {
-        revalidate: 600,
+        revalidate: 60,
       },
     }
   );
