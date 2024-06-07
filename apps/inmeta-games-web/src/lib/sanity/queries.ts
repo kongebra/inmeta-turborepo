@@ -48,7 +48,7 @@ export const fetchTournamentDetails = async (tournamentId: string) => {
     },
     {
       next: {
-        revalidate: 900,
+        revalidate: 60,
       },
     }
   );
