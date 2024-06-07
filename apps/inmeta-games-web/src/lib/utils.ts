@@ -151,7 +151,9 @@ export function calculateScoreboard(tournament: TournamentDetails) {
     });
   });
 
-  const result = Array.from(players.values())
+  const result: (PlayerStats & { score: number; rank: number })[] = Array.from(
+    players.values()
+  )
     .map((stats) => ({
       ...stats,
       score: calculatePlayerScore(stats, tournament.pointRules),

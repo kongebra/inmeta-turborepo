@@ -5,7 +5,6 @@ import { notFound } from "next/navigation";
 import TournamentGamesList from "./_components/TournamentGamesList";
 import TournamentPointSystemCard from "./_components/TournamentPointSystemCard";
 import TournamentScoreboardTable from "./_components/TournamentScoreboardTable";
-import { sleep } from "@/lib/utils";
 import { Metadata } from "next";
 
 type Params = {
@@ -28,6 +27,13 @@ export async function generateMetadata({ params: { tournamentId } }: Props) {
     title: `${tournament.name} - Inmeta Games`,
     description: `Resultater for ${tournament.name}`,
     keywords: [tournament.name, ...gameNames, "inmeta"],
+    openGraph: {
+      // TODO: add scoreboard or something for this
+      title: `${tournament.name} - Inmeta Games`,
+      description: `Resultater for ${tournament.name}`,
+      url: `https://inmeta-games.vercel.app/tournaments/${tournamentId}`,
+      type: "website",
+    },
   } satisfies Metadata;
 }
 
