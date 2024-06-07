@@ -2,11 +2,11 @@ import Heading from "@/components/heading";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { fetchTournamentsList } from "@/lib/sanity/queries";
-import { unstable_noStore } from "next/cache";
 import Link from "next/link";
 
+export const revalidate = 300;
+
 export default async function Home() {
-  unstable_noStore();
   const tournaments = await fetchTournamentsList();
 
   return (

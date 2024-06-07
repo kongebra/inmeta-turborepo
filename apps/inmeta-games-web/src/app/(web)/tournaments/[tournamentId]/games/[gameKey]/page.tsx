@@ -1,7 +1,6 @@
 import Heading from "@/components/heading";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { fetchTournamentDetails } from "@/lib/sanity/queries";
-import { unstable_noStore } from "next/cache";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { urlForImage } from "@/lib/sanity";
@@ -35,8 +34,6 @@ export async function generateMetadata({
 export default async function TournamentGamesPage({
   params: { tournamentId, gameKey },
 }: Props) {
-  unstable_noStore();
-
   const tournament = await fetchTournamentDetails(tournamentId);
   const game = tournament?.games.find((game) => game._key === gameKey);
   if (!tournament || !game) {
