@@ -21,7 +21,6 @@ type Params = {
 
 // Image generation
 export default async function Image({ params }: { params: Params }) {
-  console.log("og:image", { params });
   const tournament = await fetchTournamentDetails(params.tournamentId);
   if (!tournament) {
     return new ImageResponse(
@@ -65,20 +64,22 @@ export default async function Image({ params }: { params: Params }) {
           backgroundColor: "white",
         }}
       >
-        <div tw="bg-gray-50 flex py-8 justify-between">
-          <div tw="flex flex-col w-full py-12 px-4 md:items-center justify-between p-8 gap-8">
-            <h2 tw="flex flex-col text-3xl sm:text-4xl font-bold tracking-tight text-gray-900 text-left">
+        <div tw="bg-gray-50 flex py-4 justify-between">
+          <div tw="flex flex-col w-full py-12 px-4 justify-between p-10">
+            <h2 tw="flex flex-col text-6xl font-bold tracking-tight text-gray-900 text-left">
               <span>{tournament.name}</span>
               <span tw="text-teal-500">Resultater</span>
             </h2>
 
-            <span className="mb-8 text-lg">Topp 3: {leaders}</span>
+            <h3 className="mb-8 text-6xl font-semibold">
+              <span>Topp 3: {leaders}</span>
+            </h3>
 
             <div tw="mt-8 flex">
               <div tw="flex rounded-md shadow">
                 <a
                   href="#"
-                  tw="flex items-center justify-center rounded-md border border-transparent bg-teal-500 px-5 py-3 text-base font-medium text-white"
+                  tw="flex items-center justify-center rounded-md border border-transparent bg-teal-500 px-5 py-3 text-xl font-medium text-white"
                 >
                   Se mer
                 </a>
