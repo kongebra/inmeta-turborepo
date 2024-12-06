@@ -128,8 +128,12 @@ export function calculateScoreboard(tournament: TournamentDetails) {
       const player = players.get(organizer._id)!;
       players.set(organizer._id, {
         ...player,
-        organizedWithtoutParticipations: game.isOrganizersParticipating ? 0 : 1,
-        organizedWithParticipations: game.isOrganizersParticipating ? 1 : 0,
+        organizedWithtoutParticipations: game.isOrganizersParticipating
+          ? player.organizedWithtoutParticipations
+          : player.organizedWithtoutParticipations + 1,
+        organizedWithParticipations: game.isOrganizersParticipating
+          ? player.organizedWithParticipations + 1
+          : player.organizedWithParticipations,
       });
     });
 
