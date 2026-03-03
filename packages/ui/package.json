@@ -4,15 +4,15 @@
   "description": "",
   "private": true,
   "scripts": {
-    "ui:add": "pnpm dlx shadcn-ui@latest add",
+    "ui:add": "npx shadcn@latest add",
     "lint": "eslint"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@inmeta/eslint-config": "workspace:*",
-    "@inmeta/typescript-config": "workspace:*",
+    "@inmeta/eslint-config": "*",
+    "@inmeta/typescript-config": "*",
     "@types/node": "^20.11.16",
     "@types/react": "^18.2.55",
     "autoprefixer": "^10.0.1",
