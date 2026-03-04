@@ -120,6 +120,7 @@ export default async function TournamentGamesPage({
           title="Tilskuere"
           description={`${tournament.pointRules.spectator} poeng for tilskuere`}
           players={game.spectators}
+          dimPlayers
         />
       </div>
     </main>

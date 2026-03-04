@@ -17,6 +17,7 @@ type Props = {
   players: Person[] | null;
   className?: string;
   skeleton?: boolean;
+  dimPlayers?: boolean;
 };
 
 const PlayerItemsCard: React.FC<Props> = ({
@@ -25,6 +26,7 @@ const PlayerItemsCard: React.FC<Props> = ({
   players,
   className,
   skeleton,
+  dimPlayers,
 }) => {
   return (
     <Card className={cn("mb-8", className)}>
@@ -46,7 +48,7 @@ const PlayerItemsCard: React.FC<Props> = ({
         ) : (
           <div className="flex flex-wrap gap-8">
             {players?.map((player) => (
-              <PlayerItem key={player._id} player={player} />
+              <PlayerItem key={player._id} player={player} dimmed={dimPlayers} />
             ))}
           </div>
         )}

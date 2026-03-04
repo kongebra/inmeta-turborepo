@@ -10,9 +10,10 @@ type Props = {
   player?: Person;
 
   skeleton?: boolean;
+  dimmed?: boolean;
 };
 
-const PlayerItem: React.FC<Props> = ({ player, skeleton }) => {
+const PlayerItem: React.FC<Props> = ({ player, skeleton, dimmed }) => {
   const fullName = `${player?.firstName} ${player?.lastName}`;
   const initials = `${player?.firstName.charAt(0)}${player?.lastName.charAt(
     0
@@ -29,7 +30,7 @@ const PlayerItem: React.FC<Props> = ({ player, skeleton }) => {
   }
 
   return (
-    <div className="flex items-center gap-4">
+    <div className={`flex items-center gap-4${dimmed ? " opacity-40" : ""}`}>
       <Avatar>
         <AvatarImage src={imageSrc} alt={fullName} className="grayscale" />
         <AvatarFallback>{initials}</AvatarFallback>

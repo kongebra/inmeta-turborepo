@@ -1,4 +1,5 @@
 import Heading from "@/components/heading";
+import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { urlForImage } from "@/lib/sanity";
 import { fetchPlayerDetails } from "@/lib/sanity/queries";
@@ -26,6 +27,17 @@ export default async function PlayerDetailsPage({
   const fullName = `${player.firstName} ${player.lastName}`;
   const imageSrc = urlForImage(player.image);
 
+  const allGames = player.tournaments.flatMap((t) => t.games);
+  const totalFirstPlaces = allGames.filter((g) => g.placement === 1).length;
+  const totalParticipations = allGames.length;
+
+  // Hot/Cold streak: check last 3 games
+  const last3 = allGames.slice(-3);
+  const allPodium =
+    last3.length === 3 && last3.every((g) => g.placement >= 1 && g.placement <= 3);
+  const allCold =
+    last3.length === 3 && last3.every((g) => g.placement === 0);
+
   const printPlacement = (placement: number) => {
     switch (placement) {
       case 1:
@@ -46,7 +58,17 @@ export default async function PlayerDetailsPage({
           <Link href={`/players`}>&larr; Gå tilbake til spilleroversikt</Link>
         </div>
 
-        <Heading className="mb-8">{fullName}</Heading>
+        <div className="flex items-center gap-3 mb-8 flex-wrap">
+          <Heading>{fullName}</Heading>
+          {player.spectatedGameCount > totalParticipations && (
+            <span title="Ser mer på enn deltar!">👁️</span>
+          )}
+          {totalFirstPlaces === 0 && allGames.length > 0 && (
+            <Badge variant="secondary">😔 Still Trying</Badge>
+          )}
+          {allPodium && <Badge>🔥 Hot Streak</Badge>}
+          {allCold && <Badge variant="secondary">🧊 Cold Streak</Badge>}
+        </div>
 
         <Image
           src={imageSrc}
