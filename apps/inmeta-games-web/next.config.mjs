@@ -49,6 +49,16 @@ const securityHeaders = [
 const nextConfig = {
   poweredByHeader: false,
 
+  // Prevent Next.js from bundling Sanity packages into server-side webpack
+  // chunks. Sanity uses Node.js internals that break when bundled; letting
+  // Node resolve them natively avoids the vendor-chunk resolution error.
+  serverExternalPackages: [
+    "sanity",
+    "next-sanity",
+    "@sanity/client",
+    "@sanity/image-url",
+  ],
+
   images: {
     remotePatterns: [
       {
