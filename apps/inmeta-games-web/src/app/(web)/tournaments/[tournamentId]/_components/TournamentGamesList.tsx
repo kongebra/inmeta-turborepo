@@ -25,6 +25,12 @@ const TournamentGamesList: React.FC<Props> = ({
             <CardTitle>
               {game.name}
               {game.isDone ? " ✅" : null}
+              {game.isDone &&
+                game.isOrganizersParticipating &&
+                game.firstPlace?.some((w) =>
+                  game.organiziers?.some((o) => o._id === w._id)
+                ) &&
+                " ⚖️"}
             </CardTitle>
             <CardDescription>
               {`Arrangør: ${game.organiziers

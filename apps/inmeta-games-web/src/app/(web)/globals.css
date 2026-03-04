@@ -66,11 +66,38 @@
   }
 }
 
+/* === SHITTIFY: Comic Sans + Rainbow + Blinking === */
+@keyframes rainbow-bg {
+  0% { background-color: #ff0000; }
+  14% { background-color: #ff7f00; }
+  28% { background-color: #ffff00; }
+  42% { background-color: #00ff00; }
+  57% { background-color: #0000ff; }
+  71% { background-color: #4b0082; }
+  85% { background-color: #9400d3; }
+  100% { background-color: #ff0000; }
+}
+
+@keyframes blink-headings {
+  0%, 49% { opacity: 1; text-shadow: 3px 3px 0 red, -3px -3px 0 blue; }
+  50%, 100% { opacity: 0.3; text-shadow: -3px 3px 0 lime, 3px -3px 0 magenta; }
+}
+
+* {
+  font-family: 'Comic Sans MS', 'Comic Sans', 'Chalkboard SE', cursive !important;
+  cursor: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32'><text y='28' font-size='28'>🤡</text></svg>") 16 16, auto !important;
+}
+
+h1, h2, h3 {
+  animation: blink-headings 0.8s infinite !important;
+}
+
 @layer base {
   * {
     @apply border-border;
   }
   body {
     @apply bg-background text-foreground;
+    animation: rainbow-bg 5s linear infinite;
   }
 }

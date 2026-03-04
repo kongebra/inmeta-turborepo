@@ -123,4 +123,12 @@ export type PlayerDetails = Person & {
       organizer: boolean;
     }[];
   }[];
+  spectatedGameCount: number;
 };
+
+export type PlayerWinLossStats = {
+  games: {
+    firstPlaceIds: string[] | null;
+    participantIds: string[] | null;
+  }[];
+}[];

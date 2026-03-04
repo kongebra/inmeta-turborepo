@@ -1,9 +1,12 @@
 import Heading from "@/components/heading";
+import { Button } from "@/components/ui/button";
 import { fetchTournamentDetails } from "@/lib/sanity/queries";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import TournamentGamesList from "./_components/TournamentGamesList";
 import TournamentPointSystemCard from "./_components/TournamentPointSystemCard";
 import TournamentScoreboardTable from "./_components/TournamentScoreboardTable";
+import ScoreboardReveal from "./_components/ScoreboardReveal";
 import { Metadata } from "next";
 
 type Params = {
@@ -62,11 +65,18 @@ export default async function TournamentPage({
 
         <TournamentGamesList tournament={tournament} />
 
-        <Heading className="mb-8" size="h2">
-          Scoreboard
-        </Heading>
+        <div className="flex items-center gap-4 mb-8">
+          <Heading size="h2">Scoreboard</Heading>
+          <Button asChild variant="outline">
+            <Link href={`/tournaments/${tournamentId}/podium`}>
+              Se podium 🏆
+            </Link>
+          </Button>
+        </div>
 
-        <TournamentScoreboardTable tournament={tournament} />
+        <ScoreboardReveal>
+          <TournamentScoreboardTable tournament={tournament} />
+        </ScoreboardReveal>
       </div>
     </main>
   );

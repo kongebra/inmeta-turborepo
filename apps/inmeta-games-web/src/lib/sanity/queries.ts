@@ -1,6 +1,12 @@
 import { groq } from "next-sanity";
 import { client } from ".";
-import { Person, PlayerDetails, Tournament, TournamentDetails } from "./types";
+import {
+  Person,
+  PlayerDetails,
+  PlayerWinLossStats,
+  Tournament,
+  TournamentDetails,
+} from "./types";
 
 /**
  * This has a revalidate of 1 hour
@@ -80,7 +86,7 @@ export const fetchPlayerDetails = async (playerId: string) => {
     name,
     slug,
     "games": games[references(^.^._id) && isDone == true]{
-      
+
       _key,
       name,
       "placement": select(
@@ -91,13 +97,35 @@ export const fetchPlayerDetails = async (playerId: string) => {
       ),
       "organizer": ^.^._id in organiziers[]->._id,
     },
-    
-  }
+
+  },
+  "spectatedGameCount": count(*[_type == "tournament"][].games[^._id in spectators[]->._id])
 }`;
 
   const result = await client.fetch<PlayerDetails | null>(
     query,
     { playerId },
+    {
+      next: {
+        revalidate: 60,
+      },
+    }
+  );
+
+  return result;
+};
+
+export const fetchPlayerWinLossStats = async () => {
+  const query = groq`*[_type == "tournament"][] {
+    "games": games[isDone == true] {
+      "firstPlaceIds": firstPlace[]->._id,
+      "participantIds": participants[]->._id
+    }
+  }`;
+
+  const result = await client.fetch<PlayerWinLossStats>(
+    query,
+    {},
     {
       next: {
         revalidate: 60,

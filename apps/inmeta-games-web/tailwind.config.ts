@@ -66,10 +66,27 @@ const config = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        "melt-drip": {
+          "0%": { transform: "scaleY(1) translateY(0)", opacity: "1" },
+          "50%": { transform: "scaleY(1.08) translateY(4px)", opacity: "0.8" },
+          "100%": { transform: "scaleY(1) translateY(0)", opacity: "1" },
+        },
+        "fall": {
+          "0%": { transform: "translateY(-10vh) rotate(0deg)", opacity: "1" },
+          "100%": { transform: "translateY(110vh) rotate(720deg)", opacity: "0.3" },
+        },
+        "wobble": {
+          "0%, 100%": { transform: "rotate(0deg)" },
+          "25%": { transform: "rotate(2deg)" },
+          "75%": { transform: "rotate(-2deg)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "melt-drip": "melt-drip 2s ease-in-out infinite",
+        "fall": "fall linear infinite",
+        "wobble": "wobble 3s ease-in-out infinite",
       },
     },
   },
