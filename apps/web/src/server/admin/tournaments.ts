@@ -49,3 +49,18 @@ export const updateTournament = createServerFn({ method: 'POST' })
 export const deleteTournament = createServerFn({ method: 'POST' })
   .validator((id: string) => id)
   .handler(async ({ data: id }) => db.tournament.delete({ where: { id } }))
+
+export const getTournamentById = createServerFn({ method: 'GET' })
+  .validator((id: string) => id)
+  .handler(async ({ data: id }) =>
+    db.tournament.findUniqueOrThrow({
+      where: { id },
+      include: {
+        games: {
+          where: { status: { not: 'CANCELLED' } },
+          orderBy: { date: 'desc' },
+          include: { gameType: true },
+        },
+      },
+    })
+  )
