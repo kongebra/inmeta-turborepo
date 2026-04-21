@@ -10,17 +10,39 @@
   --ink-muted: #606060;
   --line: #2a2a2a;
   --line-soft: #1e1e1e;
+
+  /* accent: neon default */
   --accent: #44f291;
   --accent-alt: #2dd073;
   --accent-ink: #0a0a0a;
+
   --warn: #ff5668;
   --gold: #f5c842;
   --silver: #b8c0cc;
   --bronze: #cd7f32;
+
   --font-display: 'Archivo Black', sans-serif;
   --font-body: 'Archivo', sans-serif;
   --font-mono: 'IBM Plex Mono', monospace;
   --font-serif: 'DM Serif Display', serif;
+}
+
+/* Accent variants — apply via data-accent attribute on html/body */
+[data-accent="signal"] { --accent: #4cc97c; --accent-alt: #3ab069; --accent-ink: #0a0a0a; }
+[data-accent="forest"] { --accent: #6aa87c; --accent-alt: #598f68; --accent-ink: #0a0a0a; }
+[data-accent="red"]    { --accent: #ff5668; --accent-alt: #e04055; --accent-ink: #ffffff; }
+[data-accent="blue"]   { --accent: #6fa6f5; --accent-alt: #5990e0; --accent-ink: #0a0a0a; }
+
+/* Light mode — apply via data-theme="light" on html */
+[data-theme="light"] {
+  --bg: #f9f9f9;
+  --surface: #ffffff;
+  --surface-alt: #f0f0f0;
+  --ink: #0a0a0a;
+  --ink-dim: #404040;
+  --ink-muted: #808080;
+  --line: #e0e0e0;
+  --line-soft: #f0f0f0;
 }
 
 body {
