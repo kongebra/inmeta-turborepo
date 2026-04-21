@@ -4,10 +4,12 @@ import { buildConfig } from 'payload'
 import { postgresAdapter } from '@payloadcms/db-postgres'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import { s3Storage } from '@payloadcms/storage-s3'
-import { Users }     from './src/collections/Users'
-import { Media }     from './src/collections/Media'
-import { GameTypes } from './src/collections/GameTypes'
-import { Players }   from './src/collections/Players'
+import { Users }       from './src/collections/Users'
+import { Media }       from './src/collections/Media'
+import { GameTypes }   from './src/collections/GameTypes'
+import { Players }     from './src/collections/Players'
+import { Tournaments } from './src/collections/Tournaments'
+import { Games }       from './src/collections/Games'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -26,7 +28,7 @@ export default buildConfig({
   admin: {
     user: 'users', // slug defined in Users collection (Task 3)
   },
-  collections: [Users, Media, GameTypes, Players],
+  collections: [Users, Media, GameTypes, Players, Tournaments, Games],
   globals: [], // filled in later tasks
   editor: lexicalEditor({}),
   db: postgresAdapter({
