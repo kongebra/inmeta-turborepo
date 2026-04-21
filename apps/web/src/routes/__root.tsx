@@ -1,4 +1,5 @@
 import { createRootRoute, HeadContent, Outlet, Scripts } from '@tanstack/react-router'
+import { Nav } from '~/components/layout/Nav'
 import '../styles/globals.css'
 
 export const Route = createRootRoute({
@@ -25,6 +26,7 @@ function RootDocument() {
         <HeadContent />
       </head>
       <body className="bg-[var(--bg)] text-[var(--ink)] antialiased">
+        <Nav />
         <Outlet />
         <Scripts />
       </body>
