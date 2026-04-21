@@ -31,6 +31,7 @@ export function TournamentForm({ defaultValues, onSubmit, loading, error }: Tour
         { name: 'startDate', label: 'Startdato', type: 'date' },
         { name: 'year', label: 'År', type: 'number' },
         { name: 'coverImageUrl', label: 'Forsidebilde-URL' },
+        { name: 'posterImageUrl', label: 'Plakat-URL' },
       ].map(({ name, label, required, type = 'text' }) => (
         <div key={name}>
           <label className="font-mono-upper text-[var(--ink-muted)] text-xs block mb-1">{label}</label>

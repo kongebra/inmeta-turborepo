@@ -1,5 +1,5 @@
 // src/routes/_admin.tournaments.tsx
-import { createFileRoute, Link, useNavigate } from '@tanstack/react-router'
+import { createFileRoute, Link, useRouter } from '@tanstack/react-router'
 import { getTournaments } from '~/server/tournaments'
 import { deleteTournament } from '~/server/admin/tournaments'
 import { Button } from '~/components/nidaros/Button'
@@ -13,7 +13,7 @@ export const Route = createFileRoute('/_admin/tournaments')({
 
 function AdminTournamentsPage() {
   const tournaments = Route.useLoaderData()
-  const navigate = useNavigate()
+  const router = useRouter()
 
   const statusChip = (status: string) => {
     if (status === 'ACTIVE') return <Chip label="AKTIV" variant="accent" />
@@ -25,7 +25,7 @@ function AdminTournamentsPage() {
     if (!confirm(`Slett "${name}"?`)) return
     try {
       await deleteTournament({ data: id })
-      navigate({ to: '/admin/tournaments' })
+      router.invalidate()
     } catch {
       alert('Kunne ikke slette turneringen. Prøv igjen.')
     }
