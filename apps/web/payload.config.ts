@@ -10,6 +10,7 @@ import { GameTypes }   from './src/collections/GameTypes'
 import { Players }     from './src/collections/Players'
 import { Tournaments } from './src/collections/Tournaments'
 import { Games }       from './src/collections/Games'
+import { SiteSettings } from './src/globals/SiteSettings'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -29,7 +30,7 @@ export default buildConfig({
     user: 'users', // slug defined in Users collection (Task 3)
   },
   collections: [Users, Media, GameTypes, Players, Tournaments, Games],
-  globals: [], // filled in later tasks
+  globals: [SiteSettings],
   editor: lexicalEditor({}),
   db: postgresAdapter({
     pool: {
