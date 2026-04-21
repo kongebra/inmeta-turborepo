@@ -1,8 +1,5 @@
 @import "tailwindcss";
 
-/* Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;600&family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Mono:wght@400;600&display=swap');
-
 /* Nidaros v4 tokens — light mode (default) */
 :root {
   --bg: #f4f4f2;
@@ -59,10 +56,10 @@
   --color-silver: var(--silver);
   --color-bronze: var(--bronze);
 
-  --font-family-display: "Archivo Black", sans-serif;
-  --font-family-sans: "Archivo", sans-serif;
-  --font-family-mono: "IBM Plex Mono", monospace;
-  --font-family-serif: "DM Serif Display", serif;
+  --font-family-display: var(--font-display, "Archivo Black", sans-serif);
+  --font-family-sans: var(--font-body, "Archivo", sans-serif);
+  --font-family-mono: var(--font-mono, "IBM Plex Mono", monospace);
+  --font-family-serif: var(--font-serif, "DM Serif Display", serif);
 
   --radius: 0px;
   --radius-sm: 0px;
@@ -77,10 +74,10 @@
 body {
   background: var(--bg);
   color: var(--ink);
-  font-family: "Archivo", sans-serif;
+  font-family: var(--font-family-sans);
 }
 
-.font-display  { font-family: "Archivo Black", sans-serif; letter-spacing: -0.01em; }
-.font-mono     { font-family: "IBM Plex Mono", monospace; text-transform: uppercase; letter-spacing: 0.12em; }
-.font-serif    { font-family: "DM Serif Display", serif; }
+.font-display  { font-family: var(--font-family-display); letter-spacing: -0.01em; }
+.font-mono     { font-family: var(--font-family-mono); text-transform: uppercase; letter-spacing: 0.12em; }
+.font-serif    { font-family: var(--font-family-serif); }
 .font-num      { font-feature-settings: "tnum"; font-variant-numeric: tabular-nums; }
