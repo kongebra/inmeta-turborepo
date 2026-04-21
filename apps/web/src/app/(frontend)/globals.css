@@ -71,7 +71,10 @@
 }
 
 * { box-sizing: border-box; }
-body {
+body { margin: 0; }
+
+.theme-root {
+  min-height: 100vh;
   background: var(--bg);
   color: var(--ink);
   font-family: var(--font-family-sans);
