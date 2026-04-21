@@ -36,7 +36,13 @@ export function TournamentForm({ defaultValues, onSubmit, loading, error }: Tour
         <div key={name}>
           <label className="font-mono-upper text-[var(--ink-muted)] text-xs block mb-1">{label}</label>
           <input name={name} type={type} required={required}
-            defaultValue={(defaultValues as any)?.[name] ?? ''}
+            defaultValue={(() => {
+              const raw = (defaultValues as any)?.[name]
+              if (name === 'startDate' && raw) {
+                return raw instanceof Date ? raw.toISOString().slice(0, 10) : String(raw).slice(0, 10)
+              }
+              return raw ?? ''
+            })()}
             className="w-full px-3 py-2 rounded border border-[var(--line)] bg-[var(--surface)] text-[var(--ink)] focus:border-[var(--accent)] outline-none text-sm" />
         </div>
       ))}

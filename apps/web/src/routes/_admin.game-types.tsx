@@ -50,7 +50,7 @@ function AdminGameTypesPage() {
 
       {/* Opprett */}
       <form onSubmit={handleCreate} className="flex gap-2 mb-8 flex-wrap">
-        <input placeholder="Navn" value={name} onChange={e => { setName(e.target.value); setSlug(e.target.value.toLowerCase().replace(/\s+/g, '-')) }} required
+        <input placeholder="Navn" value={name} onChange={e => { setName(e.target.value); setSlug(e.target.value.toLowerCase().replace(/æ/g, 'ae').replace(/ø/g, 'o').replace(/å/g, 'a').replace(/[^a-z0-9\s-]/g, '').replace(/\s+/g, '-')) }} required
           className="flex-1 min-w-32 px-3 py-2 rounded border border-[var(--line)] bg-[var(--surface)] text-sm outline-none focus:border-[var(--accent)]" />
         <input placeholder="slug" value={slug} onChange={e => setSlug(e.target.value)} required
           className="flex-1 min-w-24 px-3 py-2 rounded border border-[var(--line)] bg-[var(--surface)] text-sm outline-none focus:border-[var(--accent)] font-mono" />
