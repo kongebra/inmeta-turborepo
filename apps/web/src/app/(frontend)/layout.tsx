@@ -8,16 +8,11 @@ export const metadata = {
   description: 'Internt turneringssystem for Inmeta Trondheim',
 }
 
-async function getThemeClass(): Promise<string> {
-  'use cache'
+export default async function FrontendLayout({ children }: { children: ReactNode }) {
   const payload = await getPayload()
   const settings = await payload.findGlobal({ slug: 'site-settings', depth: 0 }).catch(() => null)
   const themeMode = typeof settings?.themeMode === 'string' ? settings.themeMode : 'dark'
-  return themeMode === 'light' ? '' : 'dark'
-}
-
-export default async function FrontendLayout({ children }: { children: ReactNode }) {
-  const themeClass = await getThemeClass()
+  const themeClass = themeMode === 'light' ? '' : 'dark'
 
   return (
     <div className={`theme-root${themeClass ? ` ${themeClass}` : ''}`}>
