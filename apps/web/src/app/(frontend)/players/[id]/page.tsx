@@ -7,7 +7,7 @@ import { FormCell } from '@/components/ui/FormCell'
 import { SectionBar } from '@/components/ui/SectionBar'
 import { calculateScoreboard } from '@/lib/scoreboard'
 
-export const revalidate = 60
+export const dynamic = 'force-dynamic'
 
 type Props = { params: Promise<{ id: string }> }
 

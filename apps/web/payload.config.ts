@@ -26,6 +26,7 @@ if (process.env.NODE_ENV === 'production' && !process.env.PAYLOAD_SECRET) {
 }
 
 export default buildConfig({
+  serverURL: process.env.NEXT_PUBLIC_SERVER_URL ?? 'http://localhost:3000',
   admin: {
     user: 'users', // slug defined in Users collection (Task 3)
   },
