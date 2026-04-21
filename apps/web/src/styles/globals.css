@@ -1,0 +1,42 @@
+@import "tailwindcss";
+
+/* Nidaros v4 — dark mode default */
+:root {
+  --bg: #0a0a0a;
+  --surface: #141414;
+  --surface-alt: #1e1e1e;
+  --ink: #f0f0f0;
+  --ink-dim: #a0a0a0;
+  --ink-muted: #606060;
+  --line: #2a2a2a;
+  --line-soft: #1e1e1e;
+  --accent: #44f291;
+  --accent-alt: #2dd073;
+  --accent-ink: #0a0a0a;
+  --warn: #ff5668;
+  --gold: #f5c842;
+  --silver: #b8c0cc;
+  --bronze: #cd7f32;
+  --font-display: 'Archivo Black', sans-serif;
+  --font-body: 'Archivo', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+  --font-serif: 'DM Serif Display', serif;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--ink);
+}
+
+@layer utilities {
+  .font-display { font-family: var(--font-display); }
+  .font-mono-upper {
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 13px;
+  }
+  .font-serif { font-family: var(--font-serif); }
+  .tnum { font-feature-settings: "tnum"; }
+}
