@@ -41,8 +41,8 @@ export function PlayerForm({ defaultValues, gameTypes, onSubmit, loading, error 
         { name: 'lastName', label: 'Etternavn', required: true },
         { name: 'nickname', label: 'Kallenavn' },
         { name: 'homeBase', label: 'Hjemsted (bydel)' },
-        { name: 'imageUrl', label: 'Bilde-URL' },
         { name: 'funFact', label: 'Fun fact' },
+        { name: 'imageUrl', label: 'Bilde-URL' },
       ].map(({ name, label, required }) => (
         <div key={name}>
           <label className="font-mono-upper text-[var(--ink-muted)] text-xs block mb-1">{label}</label>
