@@ -30,5 +30,12 @@ export const Tournaments: CollectionConfig = {
         { name: 'spectator',                   type: 'number', defaultValue: 1 },
       ],
     },
+    {
+      name: 'games',
+      type: 'relationship',
+      relationTo: 'games',
+      hasMany: true,
+      admin: { description: 'Spill i denne turneringa' },
+    },
   ],
 }

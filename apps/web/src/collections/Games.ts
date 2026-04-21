@@ -76,5 +76,11 @@ export const Games: CollectionConfig = {
       type: 'json',
       admin: { condition: (data) => data.format === 'bracket' },
     },
+    {
+      name: 'isDone',
+      type: 'checkbox',
+      defaultValue: false,
+      admin: { description: 'Legacy-felt for Sanity-migrering' },
+    },
   ],
 }
