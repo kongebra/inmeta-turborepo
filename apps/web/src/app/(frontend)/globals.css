@@ -1,0 +1,83 @@
+@import "tailwindcss";
+
+/* Nidaros v4 tokens — light mode (default) */
+:root {
+  --bg: #f4f4f2;
+  --surface: #ffffff;
+  --surface-alt: #e8e8e2;
+  --ink: #0a0a08;
+  --ink-dim: #3a3a34;
+  --ink-muted: #666660;
+  --line: #cecec6;
+  --line-soft: #e0e0da;
+  --accent: #058a4a;
+  --accent-alt: #44f291;
+  --accent-ink: #ffffff;
+  --warn: #b02818;
+  --gold: #a67820;
+  --silver: #6a6a62;
+  --bronze: #8a5828;
+}
+
+/* Dark mode */
+.dark {
+  --bg: #0a0a08;
+  --surface: #141412;
+  --surface-alt: #1e1e1a;
+  --ink: #f4f4f0;
+  --ink-dim: #c0c0b6;
+  --ink-muted: #8a8a80;
+  --line: #2e2e28;
+  --line-soft: #1e1e1a;
+  --accent: #44f291;
+  --accent-alt: #44f291;
+  --accent-ink: #00231a;
+  --warn: #f06850;
+  --gold: #e8b840;
+  --silver: #c0c0b8;
+  --bronze: #d8944a;
+}
+
+/* Tailwind v4 theme — maps CSS vars to Tailwind utilities */
+@theme {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-alt: var(--surface-alt);
+  --color-ink: var(--ink);
+  --color-ink-dim: var(--ink-dim);
+  --color-ink-muted: var(--ink-muted);
+  --color-line: var(--line);
+  --color-line-soft: var(--line-soft);
+  --color-accent: var(--accent);
+  --color-accent-alt: var(--accent-alt);
+  --color-accent-ink: var(--accent-ink);
+  --color-warn: var(--warn);
+  --color-gold: var(--gold);
+  --color-silver: var(--silver);
+  --color-bronze: var(--bronze);
+
+  --font-family-display: var(--font-display, "Archivo Black", sans-serif);
+  --font-family-sans: var(--font-body, "Archivo", sans-serif);
+  --font-family-mono: var(--font-mono, "IBM Plex Mono", monospace);
+  --font-family-serif: var(--font-serif, "DM Serif Display", serif);
+
+  --radius: 0px;
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+  --radius-xl: 0px;
+  --radius-2xl: 0px;
+  --radius-full: 0px;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-family-sans);
+}
+
+.font-display  { font-family: var(--font-family-display); letter-spacing: -0.01em; }
+.font-mono     { font-family: var(--font-family-mono); text-transform: uppercase; letter-spacing: 0.12em; }
+.font-serif    { font-family: var(--font-family-serif); }
+.font-num      { font-feature-settings: "tnum"; font-variant-numeric: tabular-nums; }
