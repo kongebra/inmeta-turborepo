@@ -10,7 +10,12 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@payloadcms/db-postgres": "^3.83.0",
+    "@payloadcms/next": "^3.83.0",
+    "@payloadcms/richtext-lexical": "^3.83.0",
+    "@payloadcms/storage-s3": "^3.83.0",
     "next": "16.2.4",
+    "payload": "^3.83.0",
     "react": "19.2.4",
     "react-dom": "19.2.4"
   },
@@ -31,5 +36,9 @@
   "trustedDependencies": [
     "sharp",
     "unrs-resolver"
-  ]
+  ],
+  "overrides": {
+    "@types/react": "^19",
+    "@types/react-dom": "^19"
+  }
 }
