@@ -209,15 +209,14 @@ fields:
 
 ## Tilgang / roller
 
-Payload innebygd auth med email/password:
+Payload innebygd auth med email/password. Flat brukermodell dag 1:
 
 | Rolle | Tilgang |
 |---|---|
-| **admin** | Alt, inkludert schema-endringer og brukeradmin |
-| **editor** | Create/edit/publish alle collections + toggle feature-flags i siteSettings |
-| **viewer** | Read-only (ikke dag 1, legges til ved behov) |
+| **admin** | Alt — brukeradmin, schema, alle collections |
+| **user** | Create/edit/publish alle collections + siteSettings |
 
-Onboarding: admin inviterer via email → eget passord, ingen OAuth nødvendig dag 1.
+Alle i gjengen får `user`-konto. Ingen granulering dag 1 — eskalering til `admin` gjøres ad-hoc ved behov (f.eks. spillansvarlig for en sesong). Onboarding: admin oppretter konto, person setter passord.
 
 ---
 
@@ -366,8 +365,10 @@ Alle beregnes client-side fra Payload-data. Ingen ekstra lagring.
 
 ---
 
-## Åpne spørsmål
+## Besluttede åpne spørsmål
 
-- Skal `apps/web` ha eget domene fra dag 1, eller kjøre på Railway auto-generert URL?
-- Skal Sanity-appen (`inmeta-games-web`) fremdeles deployes til Vercel under migrering?
-- Hvilke 3-4 kolleger skal ha editor-tilgang dag 1?
+| Spørsmål | Svar |
+|---|---|
+| Domene dag 1 | Railway auto-generert URL — ingen eget domene |
+| `inmeta-games-web` | Kjører på Vercel/Sanity til ny app er ferdig, da avvikles den |
+| Bruker-roller | Alle får én konto (flat tilgang) — admin-eskalering ad-hoc ved behov |
