@@ -43,6 +43,15 @@ export default async function HomePage() {
     scoreboard = calculateScoreboard(gameResults, rules)
   }
 
+  // Fetch player details for home page display
+  const playerIds = scoreboard.slice(0, 3).map(e => e.playerId)
+  const homePlayersRes = playerIds.length > 0
+    ? await payload.find({ collection: 'players', where: { id: { in: playerIds } }, limit: 10, depth: 0 })
+    : { docs: [] }
+  const homePlayersMap = new Map(
+    (homePlayersRes.docs as Array<{ id: string | number; firstName: string; lastName: string }>).map(p => [String(p.id), p])
+  )
+
   return (
     <div className="max-w-6xl mx-auto px-8 py-8">
       {/* Hero */}
@@ -58,7 +67,7 @@ export default async function HomePage() {
           {activeTournament && scoreboard[0] && (
             <div className="mt-6 flex items-baseline gap-3">
               <span className="font-mono text-[13px] text-ink-dim">LEIAR NO</span>
-              <span className="font-display text-2xl">{scoreboard[0].playerId}</span>
+              <span className="font-display text-2xl">{(() => { const p = homePlayersMap.get(scoreboard[0].playerId); return p ? `${p.firstName} ${p.lastName[0]}.` : '?' })()}</span>
               <span className="font-display text-4xl text-accent font-num">{scoreboard[0].points}p</span>
             </div>
           )}
@@ -77,7 +86,7 @@ export default async function HomePage() {
               >
                 <div className="font-display text-9xl leading-none opacity-10 absolute top-0 left-0">{i + 1}</div>
                 <JerseyNumber n={i + 1} size={36} highlight={i === 0} />
-                <div className="font-display text-xl mt-3">{entry.playerId}</div>
+                <div className="font-display text-xl mt-3">{(() => { const p = homePlayersMap.get(entry.playerId); return p ? `${p.firstName} ${p.lastName[0]}.` : entry.playerId })()}</div>
                 <div className="font-display text-4xl font-num mt-2">{entry.points}</div>
               </div>
             ))}

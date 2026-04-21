@@ -42,7 +42,7 @@ export default async function PlayerProfilePage({ params }: Props) {
 
   const gamesRes = await payload.find({
     collection: 'games',
-    where: { participants: { contains: id } },
+    where: { participants: { in: [id] } },
     sort: 'date',
     limit: 100,
     depth: 2,

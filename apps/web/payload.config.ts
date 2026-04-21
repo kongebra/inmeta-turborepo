@@ -25,6 +25,10 @@ if (process.env.NODE_ENV === 'production' && !process.env.PAYLOAD_SECRET) {
   throw new Error('PAYLOAD_SECRET environment variable is required in production')
 }
 
+if (process.env.NODE_ENV === 'production' && !process.env.NEXT_PUBLIC_SERVER_URL) {
+  throw new Error('NEXT_PUBLIC_SERVER_URL environment variable is required in production')
+}
+
 export default buildConfig({
   serverURL: process.env.NEXT_PUBLIC_SERVER_URL ?? 'http://localhost:3000',
   admin: {
