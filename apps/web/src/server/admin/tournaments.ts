@@ -1,6 +1,7 @@
 import { createServerFn } from '@tanstack/react-start'
 import { z } from 'zod'
 import { db } from '~/lib/db'
+import { requireAuth } from './auth-guard'
 
 const TournamentInput = z.object({
   name: z.string().min(1),
@@ -21,8 +22,9 @@ const TournamentInput = z.object({
 
 export const createTournament = createServerFn({ method: 'POST' })
   .inputValidator(TournamentInput)
-  .handler(async ({ data }) =>
-    db.tournament.create({
+  .handler(async ({ data }) => {
+    await requireAuth()
+    return db.tournament.create({
       data: {
         ...data,
         startDate: data.startDate ? new Date(data.startDate) : null,
@@ -30,12 +32,13 @@ export const createTournament = createServerFn({ method: 'POST' })
         posterImageUrl: data.posterImageUrl || null,
       },
     })
-  )
+  })
 
 export const updateTournament = createServerFn({ method: 'POST' })
   .inputValidator(z.object({ id: z.string(), data: TournamentInput }))
-  .handler(async ({ data: { id, data } }) =>
-    db.tournament.update({
+  .handler(async ({ data: { id, data } }) => {
+    await requireAuth()
+    return db.tournament.update({
       where: { id },
       data: {
         ...data,
@@ -44,11 +47,14 @@ export const updateTournament = createServerFn({ method: 'POST' })
         posterImageUrl: data.posterImageUrl || null,
       },
     })
-  )
+  })
 
 export const deleteTournament = createServerFn({ method: 'POST' })
   .inputValidator((id: string) => id)
-  .handler(async ({ data: id }) => db.tournament.delete({ where: { id } }))
+  .handler(async ({ data: id }) => {
+    await requireAuth()
+    return db.tournament.delete({ where: { id } })
+  })
 
 export const getTournamentById = createServerFn({ method: 'GET' })
   .inputValidator((id: string) => id)

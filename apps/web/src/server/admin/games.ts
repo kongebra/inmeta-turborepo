@@ -1,6 +1,7 @@
 import { createServerFn } from '@tanstack/react-start'
 import { z } from 'zod'
 import { db } from '~/lib/db'
+import { requireAuth } from './auth-guard'
 
 const GameInput = z.object({
   name: z.string().min(1),
@@ -32,6 +33,7 @@ function playerSet(ids: string[]) {
 export const createGame = createServerFn({ method: 'POST' })
   .inputValidator(GameInput)
   .handler(async ({ data }) => {
+    await requireAuth()
     const { organizerIds, participantIds, spectatorIds, firstPlaceIds, secondPlaceIds, thirdPlaceIds, ...rest } = data
     return db.game.create({
       data: {
@@ -52,6 +54,7 @@ export const createGame = createServerFn({ method: 'POST' })
 export const updateGame = createServerFn({ method: 'POST' })
   .inputValidator(z.object({ id: z.string(), data: GameInput }))
   .handler(async ({ data: { id, data } }) => {
+    await requireAuth()
     const { organizerIds, participantIds, spectatorIds, firstPlaceIds, secondPlaceIds, thirdPlaceIds, ...rest } = data
     return db.game.update({
       where: { id },
@@ -72,4 +75,7 @@ export const updateGame = createServerFn({ method: 'POST' })
 
 export const deleteGame = createServerFn({ method: 'POST' })
   .inputValidator((id: string) => id)
-  .handler(async ({ data: id }) => db.game.delete({ where: { id } }))
+  .handler(async ({ data: id }) => {
+    await requireAuth()
+    return db.game.delete({ where: { id } })
+  })

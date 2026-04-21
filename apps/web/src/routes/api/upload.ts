@@ -9,6 +9,7 @@ export const Route = createFileRoute('/api/upload')({
       POST: async ({ request }) => {
         const session = await auth.api.getSession({ headers: request.headers })
         if (!session) return new Response('Unauthorized', { status: 401 })
+        if (session.user.role !== 'admin') return new Response('Forbidden', { status: 403 })
 
         const formData = await request.formData()
         const file = formData.get('file') as File | null

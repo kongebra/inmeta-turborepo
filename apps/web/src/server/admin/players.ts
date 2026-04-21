@@ -1,6 +1,7 @@
 import { createServerFn } from '@tanstack/react-start'
 import { z } from 'zod'
 import { db } from '~/lib/db'
+import { requireAuth } from './auth-guard'
 
 const PlayerInput = z.object({
   firstName: z.string().min(1),
@@ -15,6 +16,7 @@ const PlayerInput = z.object({
 export const createPlayer = createServerFn({ method: 'POST' })
   .inputValidator(PlayerInput)
   .handler(async ({ data }) => {
+    await requireAuth()
     return db.player.create({
       data: {
         ...data,
@@ -27,6 +29,7 @@ export const createPlayer = createServerFn({ method: 'POST' })
 export const updatePlayer = createServerFn({ method: 'POST' })
   .inputValidator(z.object({ id: z.string(), data: PlayerInput }))
   .handler(async ({ data: { id, data } }) => {
+    await requireAuth()
     return db.player.update({
       where: { id },
       data: {
@@ -40,5 +43,6 @@ export const updatePlayer = createServerFn({ method: 'POST' })
 export const deletePlayer = createServerFn({ method: 'POST' })
   .inputValidator((id: string) => id)
   .handler(async ({ data: id }) => {
+    await requireAuth()
     await db.player.delete({ where: { id } })
   })
