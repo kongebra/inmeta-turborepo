@@ -5,25 +5,13 @@ import { getPlayers } from '~/server/players'
 import { getGameTypes } from '~/server/admin/game-types'
 import { getTournaments } from '~/server/tournaments'
 import { createGame } from '~/server/admin/games'
-import { GameForm, type GameFormData } from '~/components/admin/GameForm'
+import { GameForm, type GameFormData, mapGameFormData } from '~/components/admin/GameForm'
 
 export const Route = createFileRoute('/_admin/games/new')({
   ssr: false,
   loader: () => Promise.all([getPlayers(), getGameTypes(), getTournaments()]),
   component: NewGamePage,
 })
-
-function mapFormData(data: GameFormData) {
-  return {
-    ...data,
-    duration: data.duration ? parseInt(data.duration) || undefined : undefined,
-    gameTypeId: data.gameTypeId || undefined,
-    heroImageUrl: data.heroImageUrl || undefined,
-    story: data.story || undefined,
-    date: data.date || undefined,
-    location: data.location || undefined,
-  }
-}
 
 function NewGamePage() {
   const [players, gameTypes, tournaments] = Route.useLoaderData()
@@ -35,10 +23,10 @@ function NewGamePage() {
     setLoading(true)
     setError(null)
     try {
-      await createGame({ data: mapFormData(data) })
+      await createGame({ data: mapGameFormData(data) })
       navigate({ to: '/admin/games' })
-    } catch (e: any) {
-      setError(e.message ?? 'Ukjent feil')
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'Ukjent feil')
     } finally {
       setLoading(false)
     }

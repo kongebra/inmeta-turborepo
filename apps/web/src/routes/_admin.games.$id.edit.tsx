@@ -6,7 +6,7 @@ import { getPlayers } from '~/server/players'
 import { getGameTypes } from '~/server/admin/game-types'
 import { getTournaments } from '~/server/tournaments'
 import { updateGame } from '~/server/admin/games'
-import { GameForm, type GameFormData } from '~/components/admin/GameForm'
+import { GameForm, type GameFormData, mapGameFormData } from '~/components/admin/GameForm'
 
 export const Route = createFileRoute('/_admin/games/$id/edit')({
   ssr: false,
@@ -18,18 +18,6 @@ export const Route = createFileRoute('/_admin/games/$id/edit')({
   ]),
   component: EditGamePage,
 })
-
-function mapFormData(data: GameFormData) {
-  return {
-    ...data,
-    duration: data.duration ? parseInt(data.duration) || undefined : undefined,
-    gameTypeId: data.gameTypeId || undefined,
-    heroImageUrl: data.heroImageUrl || undefined,
-    story: data.story || undefined,
-    date: data.date || undefined,
-    location: data.location || undefined,
-  }
-}
 
 function EditGamePage() {
   const [game, players, gameTypes, tournaments] = Route.useLoaderData()
@@ -49,22 +37,22 @@ function EditGamePage() {
     format: game.format,
     heroImageUrl: game.heroImageUrl ?? '',
     story: game.story ?? '',
-    organizerIds: game.organizers?.map((p: any) => p.id) ?? [],
-    participantIds: game.participants?.map((p: any) => p.id) ?? [],
-    spectatorIds: game.spectators?.map((p: any) => p.id) ?? [],
-    firstPlaceIds: game.firstPlace?.map((p: any) => p.id) ?? [],
-    secondPlaceIds: game.secondPlace?.map((p: any) => p.id) ?? [],
-    thirdPlaceIds: game.thirdPlace?.map((p: any) => p.id) ?? [],
+    organizerIds: game.organizers.map(p => p.id),
+    participantIds: game.participants.map(p => p.id),
+    spectatorIds: game.spectators.map(p => p.id),
+    firstPlaceIds: game.firstPlace.map(p => p.id),
+    secondPlaceIds: game.secondPlace.map(p => p.id),
+    thirdPlaceIds: game.thirdPlace.map(p => p.id),
   }
 
   async function handleSubmit(data: GameFormData) {
     setLoading(true)
     setError(null)
     try {
-      await updateGame({ data: { id, data: mapFormData(data) } })
+      await updateGame({ data: { id, data: mapGameFormData(data) } })
       navigate({ to: '/admin/games' })
-    } catch (e: any) {
-      setError(e.message ?? 'Ukjent feil')
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'Ukjent feil')
     } finally {
       setLoading(false)
     }

@@ -12,6 +12,18 @@ export interface GameFormData {
   secondPlaceIds: string[]; thirdPlaceIds: string[]
 }
 
+export function mapGameFormData(data: GameFormData) {
+  return {
+    ...data,
+    duration: data.duration ? parseInt(data.duration) || undefined : undefined,
+    gameTypeId: data.gameTypeId || undefined,
+    heroImageUrl: data.heroImageUrl || undefined,
+    story: data.story || undefined,
+    date: data.date || undefined,
+    location: data.location || undefined,
+  }
+}
+
 interface GameFormProps {
   players: Player[]; gameTypes: GameType[]; tournaments: Tournament[]
   defaultValues?: Partial<GameFormData>
