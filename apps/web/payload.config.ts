@@ -4,6 +4,7 @@ import { buildConfig } from 'payload'
 import { postgresAdapter } from '@payloadcms/db-postgres'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import { s3Storage } from '@payloadcms/storage-s3'
+import { Users } from './src/collections/Users'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -22,7 +23,7 @@ export default buildConfig({
   admin: {
     user: 'users', // slug defined in Users collection (Task 3)
   },
-  collections: [], // filled in later tasks
+  collections: [Users],
   globals: [], // filled in later tasks
   editor: lexicalEditor({}),
   db: postgresAdapter({
