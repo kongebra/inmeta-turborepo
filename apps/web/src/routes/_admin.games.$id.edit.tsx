@@ -66,6 +66,7 @@ function EditGamePage() {
         gameTypes={gameTypes}
         tournaments={tournaments}
         defaultValues={defaultValues}
+        gameId={id}
         onSubmit={handleSubmit}
         loading={loading}
         error={error}

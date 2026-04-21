@@ -1,6 +1,7 @@
 // src/components/admin/GameForm.tsx
 import type { Player, GameType, Tournament } from '../../../generated/prisma/client'
 import { Button } from '~/components/nidaros/Button'
+import { ImageUpload } from '~/components/admin/ImageUpload'
 import { useState } from 'react'
 
 export interface GameFormData {
@@ -27,6 +28,7 @@ export function mapGameFormData(data: GameFormData) {
 interface GameFormProps {
   players: Player[]; gameTypes: GameType[]; tournaments: Tournament[]
   defaultValues?: Partial<GameFormData>
+  gameId?: string
   onSubmit: (data: GameFormData) => Promise<void>
   loading?: boolean; error?: string | null
 }
@@ -60,7 +62,7 @@ function MultiPlayerSelect({ name, label, players, defaultIds = [] }: {
   )
 }
 
-export function GameForm({ players, gameTypes, tournaments, defaultValues, onSubmit, loading, error }: GameFormProps) {
+export function GameForm({ players, gameTypes, tournaments, defaultValues, gameId, onSubmit, loading, error }: GameFormProps) {
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     const fd = new FormData(e.currentTarget)
@@ -152,6 +154,17 @@ export function GameForm({ players, gameTypes, tournaments, defaultValues, onSub
         <textarea name="story" rows={4} defaultValue={defaultValues?.story ?? ''}
           className="w-full px-3 py-2 rounded border border-[var(--line)] bg-[var(--surface)] text-sm outline-none resize-y" />
       </div>
+
+      {gameId && (
+        <div>
+          <label className="font-mono-upper text-[var(--ink-muted)] text-xs block mb-2">Legg til bilder i galleri</label>
+          <ImageUpload
+            gameId={gameId}
+            onUploaded={(url) => console.log('Uploaded:', url)}
+          />
+          <p className="text-xs text-[var(--ink-muted)] mt-1">Bilder vises i galleriet på spill-siden etter refresh.</p>
+        </div>
+      )}
 
       <MultiPlayerSelect name="organizerIds" label="Arrangører" players={players} defaultIds={defaultValues?.organizerIds} />
       <MultiPlayerSelect name="participantIds" label="Deltakere" players={players} defaultIds={defaultValues?.participantIds} />
