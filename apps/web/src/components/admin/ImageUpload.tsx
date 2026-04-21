@@ -57,6 +57,7 @@ export function ImageUpload({ gameId, onUploaded }: ImageUploadProps) {
         size="sm"
         onClick={() => inputRef.current?.click()}
         disabled={uploading}
+        aria-label="Last opp bilde (JPEG, PNG, WebP, AVIF)"
       >
         {uploading ? 'Laster opp...' : 'Last opp bilde'}
       </Button>
