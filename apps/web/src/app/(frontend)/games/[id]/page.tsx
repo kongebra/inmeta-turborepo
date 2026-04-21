@@ -5,7 +5,6 @@ import { Avatar } from '@/components/ui/Avatar'
 import { Chip } from '@/components/ui/Chip'
 import { JerseyNumber } from '@/components/ui/JerseyNumber'
 
-export const dynamic = 'force-dynamic'
 
 type Props = { params: Promise<{ id: string }> }
 

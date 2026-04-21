@@ -1,72 +1,79 @@
-import Heading from "@/components/heading";
+import { NidarosSection, Skilt } from "@/components/nidaros";
 import { fetchTournamentDetails } from "@/lib/sanity/queries";
+import { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import TournamentGamesList from "./_components/TournamentGamesList";
 import TournamentPointSystemCard from "./_components/TournamentPointSystemCard";
 import TournamentScoreboardTable from "./_components/TournamentScoreboardTable";
-import { Metadata } from "next";
 
-type Params = {
-  tournamentId: string;
-};
+type Params = { tournamentId: string };
+type Props = { params: Params };
 
-type Props = {
-  params: Params;
-};
-
-export async function generateMetadata({ params: { tournamentId } }: Props) {
+export async function generateMetadata({ params: { tournamentId } }: Props): Promise<Metadata> {
   const tournament = await fetchTournamentDetails(tournamentId);
-  if (!tournament) {
-    return notFound();
-  }
-
-  const gameNames = tournament.games.map((game) => game.name);
-
+  if (!tournament) return {};
   return {
-    title: `${tournament.name} - Inmeta Games`,
-    description: `Resultater for ${tournament.name}`,
-    keywords: [tournament.name, ...gameNames, "inmeta"],
-    openGraph: {
-      // TODO: add scoreboard or something for this
-      title: `${tournament.name} - Inmeta Games`,
-      description: `Resultater for ${tournament.name}`,
-      url: `https://inmeta-games.vercel.app/tournaments/${tournamentId}`,
-      type: "website",
-    },
-  } satisfies Metadata;
+    title: `${tournament.name} — Trønder Leikan`,
+    description: `Standings og spill for ${tournament.name}`,
+  };
 }
 
-export default async function TournamentPage({
-  params: { tournamentId },
-}: Props) {
+export default async function TournamentPage({ params: { tournamentId } }: Props) {
   const tournament = await fetchTournamentDetails(tournamentId);
+  if (!tournament) return notFound();
 
-  if (!tournament) {
-    return notFound();
-  }
+  const doneCount = tournament.games.filter((g) => g.isDone).length;
+  const allDone = doneCount === tournament.games.length && tournament.games.length > 0;
+  const hasAny = doneCount > 0;
+
+  const statusLabel = allDone ? "Ferdig" : hasAny ? "● Aktiv" : "Planlagt";
+  const statusVariant = allDone ? "muted" : hasAny ? "skog" : "dark";
 
   return (
-    <main className="">
+    <main>
       <div className="container py-8">
-        <Heading className="mb-8">{tournament.name}</Heading>
+        <div className="font-mono text-[10px] text-n-ink-dim uppercase tracking-[0.12em] mb-4">
+          <Link href="/" className="hover:text-n-ink transition-colors">
+            ← Alle turneringer
+          </Link>
+        </div>
 
-        <Heading className="mb-8" size="h2">
-          Poengsystem
-        </Heading>
+        <div className="flex flex-wrap items-baseline gap-3 mb-2">
+          <h1 className="font-display text-4xl lg:text-5xl leading-none text-n-ink">
+            {tournament.name}
+          </h1>
+          <Skilt variant={statusVariant as "rust" | "skog" | "messing" | "muted" | "dark"}>
+            {statusLabel}
+          </Skilt>
+        </div>
 
-        <TournamentPointSystemCard tournament={tournament} />
+        <p className="font-serif italic text-n-ink-dim text-lg mt-2 mb-8 max-w-xl">
+          {doneCount} spill gjennomført
+          {tournament.games.length - doneCount > 0
+            ? ` · ${tournament.games.length - doneCount} igjen`
+            : ""}
+        </p>
 
-        <Heading className="mb-8" size="h2">
-          Games
-        </Heading>
+        <div className="grid grid-cols-1 lg:grid-cols-[1.4fr_1fr] gap-8">
+          {/* LEFT — games timeline */}
+          <div>
+            <NidarosSection title="Spill i kronologi">
+              <TournamentGamesList tournament={tournament} />
+            </NidarosSection>
+          </div>
 
-        <TournamentGamesList tournament={tournament} />
+          {/* RIGHT — standings + collapsed point rules */}
+          <div>
+            <NidarosSection title="Standings" aside="Etter poeng">
+              <TournamentScoreboardTable tournament={tournament} />
+            </NidarosSection>
 
-        <Heading className="mb-8" size="h2">
-          Scoreboard
-        </Heading>
-
-        <TournamentScoreboardTable tournament={tournament} />
+            <NidarosSection title="Poengeregler">
+              <TournamentPointSystemCard tournament={tournament} />
+            </NidarosSection>
+          </div>
+        </div>
       </div>
     </main>
   );

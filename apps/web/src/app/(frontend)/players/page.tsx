@@ -3,7 +3,6 @@ import { getPayload } from '@/lib/payload'
 import { Avatar } from '@/components/ui/Avatar'
 import { SectionBar } from '@/components/ui/SectionBar'
 
-export const dynamic = 'force-dynamic'
 
 type PlayerDoc = {
   id: string | number

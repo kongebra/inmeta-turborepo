@@ -1,93 +1,85 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+import { Medal, PlayerAvatar, RankBadge } from "@/components/nidaros";
 import { urlForImage } from "@/lib/sanity";
 import { TournamentDetails } from "@/lib/sanity/types";
 import { calculateScoreboard } from "@/lib/utils";
-import Image from "next/image";
 import React from "react";
 
-type Props = {
-  readonly tournament: TournamentDetails;
-};
+type Props = { readonly tournament: TournamentDetails };
 
 const TournamentScoreboardTable: React.FC<Props> = ({ tournament }) => {
   const scoreboard = calculateScoreboard(tournament);
 
+  if (scoreboard.length === 0) {
+    return (
+      <div className="bg-n-bg2 border border-n-line p-6 text-center">
+        <p className="font-mono text-[10px] text-n-muted uppercase tracking-[0.12em]">
+          Ingen resultat ennå
+        </p>
+      </div>
+    );
+  }
+
   return (
-    <Table>
-      <TableHeader>
-        <TableRow>
-          <TableHead title="Plassering">#</TableHead>
-          <TableHead>Bilde</TableHead>
-          <TableHead>Navn</TableHead>
-          <TableHead className="hidden lg:table-cell">Deltakelser</TableHead>
-          <TableHead className="hidden lg:table-cell">Tilskuer</TableHead>
-          <TableHead className="hidden lg:table-cell">
-            1st / 2nd / 3rd
-          </TableHead>
-          <TableHead
-            className="hidden lg:table-cell"
-            title="Arrangør (med deltakelse/uten deltakelse)"
+    <div className="bg-n-bg2 border border-n-line">
+      {/* Header */}
+      <div className="grid grid-cols-[28px_36px_1fr_40px_64px_44px] gap-2.5 px-3 py-2.5 border-b border-n-line">
+        {["#", "", "Navn", "Spill", "1·2·3", "Pt"].map((h, i) => (
+          <span
+            key={i}
+            className="font-mono text-[8px] text-n-ink-dim uppercase tracking-[0.12em] text-right first:text-left [&:nth-child(3)]:text-left"
           >
-            Arrangør (M / U)
-          </TableHead>
-          <TableHead>Poeng</TableHead>
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        {scoreboard.map((item) => {
-          const fullName = `${item.player.firstName} ${item.player.lastName}`;
-          const initials = `${item.player.firstName.charAt(
-            0
-          )}${item.player.lastName.charAt(0)}`;
+            {h}
+          </span>
+        ))}
+      </div>
 
-          const imageSrc = urlForImage(item.player.image);
+      {/* Rows */}
+      {scoreboard.map((item, i) => {
+        const imageSrc = item.player.image ? urlForImage(item.player.image) : null;
+        const isTop = item.rank <= 3;
 
-          return (
-            <TableRow key={item.player._id}>
-              <TableCell className="font-bold">{item.rank}</TableCell>
-              <TableCell>
-                <Avatar>
-                  <AvatarImage asChild src={imageSrc}>
-                    <Image
-                      src={imageSrc}
-                      alt={fullName}
-                      width={40}
-                      height={40}
-                      className="grayscale hover:invert transition-all"
-                    />
-                  </AvatarImage>
-                  <AvatarFallback>{initials}</AvatarFallback>
-                </Avatar>
-              </TableCell>
-              <TableCell>{fullName}</TableCell>
-              <TableCell className="hidden lg:table-cell">
-                {item.participations}
-              </TableCell>
-              <TableCell className="hidden lg:table-cell">
-                {item.spectatorCount}
-              </TableCell>
-              <TableCell
-                title={`${item.firstPlaces} førsteplasser. ${item.secondPlaces} andreplasser. ${item.thirdPlaces} tredjeplasser`}
-                className="font-mono hidden lg:table-cell"
-              >{`${item.firstPlaces} / ${item.secondPlaces} / ${item.thirdPlaces}`}</TableCell>
-              <TableCell
-                title={`${item.organizedWithParticipations} organisert med deltakelse. ${item.organizedWithtoutParticipations} organisert uten deltakelse.`}
-                className="font-mono hidden lg:table-cell"
-              >{`${item.organizedWithParticipations} / ${item.organizedWithtoutParticipations}`}</TableCell>
-              <TableCell className="font-bold">{item.score}</TableCell>
-            </TableRow>
-          );
-        })}
-      </TableBody>
-    </Table>
+        return (
+          <div
+            key={item.player._id}
+            className={[
+              "grid grid-cols-[28px_36px_1fr_40px_64px_44px] gap-2.5 px-3 py-2.5 items-center",
+              i < scoreboard.length - 1 ? "border-b border-n-line-soft" : "",
+              isTop ? "bg-gradient-to-r from-n-rust/5 to-transparent" : "",
+            ].join(" ")}
+          >
+            <div className="flex items-center">
+              <RankBadge rank={item.rank} />
+            </div>
+            <PlayerAvatar
+              firstName={item.player.firstName}
+              lastName={item.player.lastName}
+              imageSrc={imageSrc}
+              size="sm"
+              tone={i}
+            />
+            <div className="min-w-0">
+              <div className="font-sans text-[13px] text-n-ink font-medium truncate">
+                {item.player.firstName} {item.player.lastName}
+              </div>
+            </div>
+            <div className="font-mono text-[10px] text-n-ink-dim text-right">
+              {item.participations}
+            </div>
+            <div className="font-mono text-[10px] text-n-ink-dim text-right">
+              {item.firstPlaces}·{item.secondPlaces}·{item.thirdPlaces}
+            </div>
+            <div
+              className={[
+                "font-display text-[15px] text-right",
+                isTop ? "text-n-messing" : "text-n-ink",
+              ].join(" ")}
+            >
+              {item.score}
+            </div>
+          </div>
+        );
+      })}
+    </div>
   );
 };
 
