@@ -7,7 +7,7 @@ import { SectionBar } from '~/components/nidaros/SectionBar'
 import { Chip } from '~/components/nidaros/Chip'
 
 export const Route = createFileRoute('/players/$id')({
-  loader: ({ params }) => getPlayer(params.id),
+  loader: ({ params }) => getPlayer({ data: params.id }),
   component: PlayerPage,
 })
 

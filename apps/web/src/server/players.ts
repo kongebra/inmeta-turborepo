@@ -9,7 +9,7 @@ export const getPlayers = createServerFn({ method: 'GET' }).handler(async () => 
 })
 
 export const getPlayer = createServerFn({ method: 'GET' })
-  .validator((id: string) => id)
+  .inputValidator((id: string) => id)
   .handler(async ({ data: id }) => {
     return db.player.findUniqueOrThrow({
       where: { id },

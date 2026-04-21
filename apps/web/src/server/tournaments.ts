@@ -16,7 +16,7 @@ export const getTournaments = createServerFn({ method: 'GET' }).handler(async ()
 })
 
 export const getTournament = createServerFn({ method: 'GET' })
-  .validator((slug: string) => slug)
+  .inputValidator((slug: string) => slug)
   .handler(async ({ data: slug }) => {
     return db.tournament.findUniqueOrThrow({
       where: { slug },

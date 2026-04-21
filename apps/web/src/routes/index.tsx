@@ -58,7 +58,7 @@ function Home() {
       {/* Topp 3 spillere */}
       <section>
         <SectionBar label="Topp spillere" action={
-          <Link to="/players/" className="font-mono-upper text-[var(--ink-muted)] hover:text-[var(--accent)] text-xs">
+          <Link to="/players" className="font-mono-upper text-[var(--ink-muted)] hover:text-[var(--accent)] text-xs">
             Se alle →
           </Link>
         } />

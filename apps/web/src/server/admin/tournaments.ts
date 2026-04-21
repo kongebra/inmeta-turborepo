@@ -20,7 +20,7 @@ const TournamentInput = z.object({
 })
 
 export const createTournament = createServerFn({ method: 'POST' })
-  .validator(TournamentInput.parse)
+  .inputValidator(TournamentInput)
   .handler(async ({ data }) =>
     db.tournament.create({
       data: {
@@ -33,7 +33,7 @@ export const createTournament = createServerFn({ method: 'POST' })
   )
 
 export const updateTournament = createServerFn({ method: 'POST' })
-  .validator(z.object({ id: z.string(), data: TournamentInput }).parse)
+  .inputValidator(z.object({ id: z.string(), data: TournamentInput }))
   .handler(async ({ data: { id, data } }) =>
     db.tournament.update({
       where: { id },
@@ -47,11 +47,11 @@ export const updateTournament = createServerFn({ method: 'POST' })
   )
 
 export const deleteTournament = createServerFn({ method: 'POST' })
-  .validator((id: string) => id)
+  .inputValidator((id: string) => id)
   .handler(async ({ data: id }) => db.tournament.delete({ where: { id } }))
 
 export const getTournamentById = createServerFn({ method: 'GET' })
-  .validator((id: string) => id)
+  .inputValidator((id: string) => id)
   .handler(async ({ data: id }) =>
     db.tournament.findUniqueOrThrow({
       where: { id },

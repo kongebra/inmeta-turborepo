@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { createTournament } from '~/server/admin/tournaments'
 import { TournamentForm, type TournamentFormData } from '~/components/admin/TournamentForm'
 
-export const Route = createFileRoute('/_admin/tournaments/new')({
+export const Route = createFileRoute('/admin/tournaments/new')({
   ssr: false,
   component: NewTournamentPage,
 })

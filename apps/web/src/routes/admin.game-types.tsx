@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { getGameTypes, createGameType, deleteGameType } from '~/server/admin/game-types'
 import { Button } from '~/components/nidaros/Button'
 
-export const Route = createFileRoute('/_admin/game-types')({
+export const Route = createFileRoute('/admin/game-types')({
   ssr: false,
   loader: () => getGameTypes(),
   component: AdminGameTypesPage,

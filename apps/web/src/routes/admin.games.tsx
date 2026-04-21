@@ -4,7 +4,7 @@ import { getAllGames } from '~/server/games'
 import { deleteGame } from '~/server/admin/games'
 import { Button } from '~/components/nidaros/Button'
 
-export const Route = createFileRoute('/_admin/games')({
+export const Route = createFileRoute('/admin/games')({
   ssr: false,
   loader: () => getAllGames(),
   component: AdminGamesPage,

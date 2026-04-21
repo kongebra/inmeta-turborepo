@@ -6,7 +6,7 @@ import { getGameTypes } from '~/server/admin/game-types'
 import { updatePlayer } from '~/server/admin/players'
 import { PlayerForm, type PlayerFormData } from '~/components/admin/PlayerForm'
 
-export const Route = createFileRoute('/_admin/players/$id/edit')({
+export const Route = createFileRoute('/admin/players/$id/edit')({
   ssr: false,
   loader: ({ params }) => Promise.all([getPlayer({ data: params.id }), getGameTypes()]),
   component: EditPlayerPage,

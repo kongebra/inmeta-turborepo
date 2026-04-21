@@ -3,13 +3,13 @@ import { useEffect } from 'react'
 import { useSession, signOut } from '~/lib/auth-client'
 import { Button } from '~/components/nidaros/Button'
 
-export const Route = createFileRoute('/_admin')({
+export const Route = createFileRoute('/admin')({
   ssr: false,
   component: AdminLayout,
 })
 
 const adminLinks = [
-  { to: '/admin/' as const, label: 'Dashboard' },
+  { to: '/admin' as const, label: 'Dashboard' },
   { to: '/admin/players' as const, label: 'Spillere' },
   { to: '/admin/game-types' as const, label: 'Spilltyper' },
   { to: '/admin/tournaments' as const, label: 'Turneringer' },

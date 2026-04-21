@@ -2,7 +2,7 @@ import { Link } from '@tanstack/react-router'
 
 const links = [
   { to: '/' as const, label: 'Hjem', exact: true },
-  { to: '/players/' as const, label: 'Spillere' },
+  { to: '/players' as const, label: 'Spillere' },
   { to: '/achievements' as const, label: 'Merker' },
 ]
 
@@ -24,7 +24,7 @@ export function Nav() {
               {label}
             </Link>
           ))}
-          <Link to="/admin/" className="font-mono-upper text-[var(--ink-muted)] hover:text-[var(--ink-dim)]">
+          <Link to="/admin" className="font-mono-upper text-[var(--ink-muted)] hover:text-[var(--ink-dim)]">
             Admin
           </Link>
         </div>

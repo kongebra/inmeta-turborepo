@@ -2,7 +2,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { getGame } from '~/server/games'
 
 export const Route = createFileRoute('/games/$id/bracket')({
-  loader: ({ params }) => getGame(params.id),
+  loader: ({ params }) => getGame({ data: params.id }),
   component: BracketPage,
 })
 

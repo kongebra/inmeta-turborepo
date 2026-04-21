@@ -5,7 +5,7 @@ import { deleteTournament } from '~/server/admin/tournaments'
 import { Button } from '~/components/nidaros/Button'
 import { Chip } from '~/components/nidaros/Chip'
 
-export const Route = createFileRoute('/_admin/tournaments')({
+export const Route = createFileRoute('/admin/tournaments')({
   ssr: false,
   loader: () => getTournaments(),
   component: AdminTournamentsPage,

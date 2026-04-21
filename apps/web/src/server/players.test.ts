@@ -11,7 +11,7 @@ vi.mock('~/lib/db', () => ({
 
 import { db } from '~/lib/db'
 
-const mockDb = db as {
+const mockDb = db as unknown as {
   player: {
     findMany: ReturnType<typeof vi.fn>
     findUniqueOrThrow: ReturnType<typeof vi.fn>

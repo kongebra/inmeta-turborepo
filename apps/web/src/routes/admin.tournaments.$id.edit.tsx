@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { getTournamentById, updateTournament } from '~/server/admin/tournaments'
 import { TournamentForm, type TournamentFormData } from '~/components/admin/TournamentForm'
 
-export const Route = createFileRoute('/_admin/tournaments/$id/edit')({
+export const Route = createFileRoute('/admin/tournaments/$id/edit')({
   ssr: false,
   loader: ({ params }) => getTournamentById({ data: params.id }),
   component: EditTournamentPage,

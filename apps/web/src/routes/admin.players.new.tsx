@@ -5,7 +5,7 @@ import { createPlayer } from '~/server/admin/players'
 import { getGameTypes } from '~/server/admin/game-types'
 import { PlayerForm, type PlayerFormData } from '~/components/admin/PlayerForm'
 
-export const Route = createFileRoute('/_admin/players/new')({
+export const Route = createFileRoute('/admin/players/new')({
   ssr: false,
   loader: () => getGameTypes(),
   component: NewPlayerPage,

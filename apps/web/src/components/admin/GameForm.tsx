@@ -6,8 +6,10 @@ import { useState } from 'react'
 
 export interface GameFormData {
   name: string; tournamentId: string; gameTypeId: string
-  date: string; status: string; location: string; duration: string
-  format: string; heroImageUrl: string; story: string
+  date: string; status: 'PLANNED' | 'SCHEDULED' | 'LIVE' | 'DONE' | 'CANCELLED'
+  location: string; duration: string
+  format: 'PLACEMENT' | 'SCORE' | 'TIME' | 'BRACKET'
+  heroImageUrl: string; story: string
   organizerIds: string[]; participantIds: string[]
   spectatorIds: string[]; firstPlaceIds: string[]
   secondPlaceIds: string[]; thirdPlaceIds: string[]
@@ -73,10 +75,10 @@ export function GameForm({ players, gameTypes, tournaments, defaultValues, gameI
       tournamentId: fd.get('tournamentId') as string,
       gameTypeId: fd.get('gameTypeId') as string,
       date: fd.get('date') as string,
-      status: fd.get('status') as string,
+      status: fd.get('status') as GameFormData['status'],
       location: fd.get('location') as string,
       duration: fd.get('duration') as string,
-      format: fd.get('format') as string,
+      format: fd.get('format') as GameFormData['format'],
       heroImageUrl: fd.get('heroImageUrl') as string,
       story: fd.get('story') as string,
       organizerIds: getAll('organizerIds'),

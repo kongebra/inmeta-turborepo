@@ -28,7 +28,7 @@ function LoginPage() {
       return
     }
 
-    navigate({ to: '/admin/' })
+    navigate({ to: '/admin' })
   }
 
   return (

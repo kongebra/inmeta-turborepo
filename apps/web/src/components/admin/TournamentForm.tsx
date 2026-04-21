@@ -20,7 +20,7 @@ export function TournamentForm({ defaultValues, onSubmit, loading, error }: Tour
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     const fd = new FormData(e.currentTarget)
-    await onSubmit(Object.fromEntries(fd.entries()) as TournamentFormData)
+    await onSubmit(Object.fromEntries(fd.entries()) as unknown as TournamentFormData)
   }
 
   return (

@@ -5,7 +5,7 @@ import { deletePlayer } from '~/server/admin/players'
 import { Button } from '~/components/nidaros/Button'
 import { Avatar } from '~/components/nidaros/Avatar'
 
-export const Route = createFileRoute('/_admin/players')({
+export const Route = createFileRoute('/admin/players')({
   ssr: false,
   loader: () => getPlayers(),
   component: AdminPlayersPage,

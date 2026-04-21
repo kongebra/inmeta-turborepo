@@ -9,15 +9,15 @@ const GameTypeInput = z.object({
 })
 
 export const createGameType = createServerFn({ method: 'POST' })
-  .validator(GameTypeInput.parse)
+  .inputValidator(GameTypeInput)
   .handler(async ({ data }) => db.gameType.create({ data }))
 
 export const updateGameType = createServerFn({ method: 'POST' })
-  .validator(z.object({ id: z.string(), data: GameTypeInput }).parse)
+  .inputValidator(z.object({ id: z.string(), data: GameTypeInput }))
   .handler(async ({ data: { id, data } }) => db.gameType.update({ where: { id }, data }))
 
 export const deleteGameType = createServerFn({ method: 'POST' })
-  .validator((id: string) => id)
+  .inputValidator((id: string) => id)
   .handler(async ({ data: id }) => db.gameType.delete({ where: { id } }))
 
 export const getGameTypes = createServerFn({ method: 'GET' }).handler(async () =>

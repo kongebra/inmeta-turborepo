@@ -30,7 +30,7 @@ function playerSet(ids: string[]) {
 }
 
 export const createGame = createServerFn({ method: 'POST' })
-  .validator(GameInput.parse)
+  .inputValidator(GameInput)
   .handler(async ({ data }) => {
     const { organizerIds, participantIds, spectatorIds, firstPlaceIds, secondPlaceIds, thirdPlaceIds, ...rest } = data
     return db.game.create({
@@ -50,7 +50,7 @@ export const createGame = createServerFn({ method: 'POST' })
   })
 
 export const updateGame = createServerFn({ method: 'POST' })
-  .validator(z.object({ id: z.string(), data: GameInput }).parse)
+  .inputValidator(z.object({ id: z.string(), data: GameInput }))
   .handler(async ({ data: { id, data } }) => {
     const { organizerIds, participantIds, spectatorIds, firstPlaceIds, secondPlaceIds, thirdPlaceIds, ...rest } = data
     return db.game.update({
@@ -71,5 +71,5 @@ export const updateGame = createServerFn({ method: 'POST' })
   })
 
 export const deleteGame = createServerFn({ method: 'POST' })
-  .validator((id: string) => id)
+  .inputValidator((id: string) => id)
   .handler(async ({ data: id }) => db.game.delete({ where: { id } }))

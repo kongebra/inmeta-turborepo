@@ -5,7 +5,7 @@ import { JerseyNumber } from '~/components/nidaros/JerseyNumber'
 import { Chip } from '~/components/nidaros/Chip'
 
 export const Route = createFileRoute('/tournaments/$slug')({
-  loader: ({ params }) => getTournament(params.slug),
+  loader: ({ params }) => getTournament({ data: params.slug }),
   component: TournamentPage,
 })
 

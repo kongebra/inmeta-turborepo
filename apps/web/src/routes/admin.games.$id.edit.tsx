@@ -8,7 +8,7 @@ import { getTournaments } from '~/server/tournaments'
 import { updateGame } from '~/server/admin/games'
 import { GameForm, type GameFormData, mapGameFormData } from '~/components/admin/GameForm'
 
-export const Route = createFileRoute('/_admin/games/$id/edit')({
+export const Route = createFileRoute('/admin/games/$id/edit')({
   ssr: false,
   loader: ({ params }) => Promise.all([
     getGame({ data: params.id }),

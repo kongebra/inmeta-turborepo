@@ -7,7 +7,7 @@ import { getTournaments } from '~/server/tournaments'
 import { createGame } from '~/server/admin/games'
 import { GameForm, type GameFormData, mapGameFormData } from '~/components/admin/GameForm'
 
-export const Route = createFileRoute('/_admin/games/new')({
+export const Route = createFileRoute('/admin/games/new')({
   ssr: false,
   loader: () => Promise.all([getPlayers(), getGameTypes(), getTournaments()]),
   component: NewGamePage,

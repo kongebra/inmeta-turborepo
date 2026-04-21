@@ -13,7 +13,7 @@ const PlayerInput = z.object({
 })
 
 export const createPlayer = createServerFn({ method: 'POST' })
-  .validator(PlayerInput.parse)
+  .inputValidator(PlayerInput)
   .handler(async ({ data }) => {
     return db.player.create({
       data: {
@@ -25,7 +25,7 @@ export const createPlayer = createServerFn({ method: 'POST' })
   })
 
 export const updatePlayer = createServerFn({ method: 'POST' })
-  .validator(z.object({ id: z.string(), data: PlayerInput }).parse)
+  .inputValidator(z.object({ id: z.string(), data: PlayerInput }))
   .handler(async ({ data: { id, data } }) => {
     return db.player.update({
       where: { id },
@@ -38,7 +38,7 @@ export const updatePlayer = createServerFn({ method: 'POST' })
   })
 
 export const deletePlayer = createServerFn({ method: 'POST' })
-  .validator((id: string) => id)
+  .inputValidator((id: string) => id)
   .handler(async ({ data: id }) => {
     await db.player.delete({ where: { id } })
   })
