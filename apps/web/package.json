@@ -1,5 +1,5 @@
 {
-  "name": "web",
+  "name": "leikan-web",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -30,7 +30,7 @@
     "zod": "^3.24.2"
   },
   "devDependencies": {
-    "@tanstack/react-router-devtools": "^1.168.23",
+    "@tanstack/react-router-devtools": "^1.166.13",
     "@tailwindcss/vite": "^4.2.2",
     "@types/node": "^22.5.4",
     "@types/pg": "^8.11.10",
