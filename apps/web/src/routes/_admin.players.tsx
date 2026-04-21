@@ -17,8 +17,12 @@ function AdminPlayersPage() {
 
   async function handleDelete(id: string, name: string) {
     if (!confirm(`Slett ${name}?`)) return
-    await deletePlayer({ data: id })
-    navigate({ to: '/admin/players' })
+    try {
+      await deletePlayer({ data: id })
+      navigate({ to: '/admin/players' })
+    } catch {
+      alert('Kunne ikke slette spilleren. Prøv igjen.')
+    }
   }
 
   return (

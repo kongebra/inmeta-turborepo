@@ -36,20 +36,20 @@ export function PlayerForm({ defaultValues, gameTypes, onSubmit, loading, error 
 
   return (
     <form onSubmit={handleSubmit} className="space-y-5 max-w-lg">
-      {[
+      {([
         { name: 'firstName', label: 'Fornavn', required: true },
         { name: 'lastName', label: 'Etternavn', required: true },
         { name: 'nickname', label: 'Kallenavn' },
         { name: 'homeBase', label: 'Hjemsted (bydel)' },
         { name: 'funFact', label: 'Fun fact' },
         { name: 'imageUrl', label: 'Bilde-URL' },
-      ].map(({ name, label, required }) => (
+      ] as Array<{ name: keyof PlayerFormData; label: string; required?: boolean }>).map(({ name, label, required }) => (
         <div key={name}>
           <label className="font-mono-upper text-[var(--ink-muted)] text-xs block mb-1">{label}</label>
           <input
             name={name}
             required={required}
-            defaultValue={(defaultValues as any)?.[name] ?? ''}
+            defaultValue={defaultValues?.[name as keyof typeof defaultValues] as string ?? ''}
             className="w-full px-3 py-2 rounded border border-[var(--line)] bg-[var(--surface)] text-[var(--ink)] focus:border-[var(--accent)] outline-none text-sm"
           />
         </div>
