@@ -11,6 +11,7 @@ export const GameTypes: CollectionConfig = {
       name: 'slug',
       type: 'text',
       required: true,
+      unique: true,
       admin: { description: 'dart, sjakk, discgolf, bar-quiz, …' },
     },
     {
