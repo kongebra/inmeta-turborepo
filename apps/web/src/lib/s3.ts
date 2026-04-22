@@ -7,17 +7,17 @@ import sharp from 'sharp'
 import { randomUUID } from 'crypto'
 
 export const s3 = new S3Client({
-  endpoint: process.env.RAILWAY_S3_ENDPOINT!,
-  region: process.env.RAILWAY_S3_REGION ?? 'auto',
+  endpoint: process.env.S3_ENDPOINT!,
+  region: process.env.S3_REGION ?? 'auto',
   credentials: {
-    accessKeyId: process.env.RAILWAY_S3_ACCESS_KEY!,
-    secretAccessKey: process.env.RAILWAY_S3_SECRET_KEY!,
+    accessKeyId: process.env.S3_ACCESS_KEY_ID!,
+    secretAccessKey: process.env.S3_SECRET_ACCESS_KEY!,
   },
   forcePathStyle: true,
 })
 
-const BUCKET = process.env.RAILWAY_S3_BUCKET!
-const BASE_URL = process.env.RAILWAY_S3_ENDPOINT!
+const BUCKET = process.env.S3_BUCKET!
+const BASE_URL = process.env.S3_ENDPOINT!
 
 export type UploadResult = {
   url: string
