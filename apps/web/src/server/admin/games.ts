@@ -12,7 +12,7 @@ const GameInput = z.object({
   location: z.string().optional(),
   duration: z.number().int().optional(),
   format: z.enum(['PLACEMENT', 'SCORE', 'TIME', 'BRACKET']).default('PLACEMENT'),
-  heroImageUrl: z.string().url().optional().or(z.literal('')),
+  heroImageUrl: z.string().optional(),
   story: z.string().optional(),
   organizerIds: z.array(z.string()).default([]),
   participantIds: z.array(z.string()).default([]),

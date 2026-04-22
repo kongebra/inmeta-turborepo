@@ -2,6 +2,7 @@ import {
   S3Client,
   PutObjectCommand,
   DeleteObjectCommand,
+  GetObjectCommand,
 } from '@aws-sdk/client-s3'
 import sharp from 'sharp'
 import { randomUUID } from 'crypto'
@@ -17,12 +18,15 @@ export const s3 = new S3Client({
 })
 
 const BUCKET = process.env.S3_BUCKET!
-const BASE_URL = process.env.S3_ENDPOINT!
 
 export type UploadResult = {
   url: string
   thumbnailUrl: string
   mediumUrl: string
+}
+
+function mediaUrl(key: string) {
+  return `/api/media?key=${encodeURIComponent(key)}`
 }
 
 export async function uploadImage(
@@ -52,13 +56,17 @@ export async function uploadImage(
   ])
 
   return {
-    url: `${BASE_URL}/${BUCKET}/${keys.original}`,
-    thumbnailUrl: `${BASE_URL}/${BUCKET}/${keys.thumbnail}`,
-    mediumUrl: `${BASE_URL}/${BUCKET}/${keys.medium}`,
+    url: mediaUrl(keys.original),
+    thumbnailUrl: mediaUrl(keys.thumbnail),
+    mediumUrl: mediaUrl(keys.medium),
   }
 }
 
-export async function deleteFromS3(url: string) {
-  const key = url.replace(`${BASE_URL}/${BUCKET}/`, '')
+export async function getObjectStream(key: string) {
+  const res = await s3.send(new GetObjectCommand({ Bucket: BUCKET, Key: key }))
+  return { body: res.Body, contentType: res.ContentType ?? 'application/octet-stream' }
+}
+
+export async function deleteFromS3(key: string) {
   await s3.send(new DeleteObjectCommand({ Bucket: BUCKET, Key: key }))
 }

@@ -9,12 +9,16 @@ import { GameForm, type GameFormData, mapGameFormData } from '~/components/admin
 
 export const Route = createFileRoute('/admin/games/new')({
   ssr: false,
+  validateSearch: (search: Record<string, unknown>) => ({
+    tournamentId: typeof search.tournamentId === 'string' ? search.tournamentId : undefined,
+  }),
   loader: () => Promise.all([getPlayers(), getGameTypes(), getTournaments()]),
   component: NewGamePage,
 })
 
 function NewGamePage() {
   const [players, gameTypes, tournaments] = Route.useLoaderData()
+  const { tournamentId } = Route.useSearch()
   const navigate = useNavigate()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -35,7 +39,7 @@ function NewGamePage() {
   return (
     <div className="p-8">
       <h1 className="font-display text-3xl mb-8">Nytt spill</h1>
-      <GameForm players={players} gameTypes={gameTypes} tournaments={tournaments} onSubmit={handleSubmit} loading={loading} error={error} />
+      <GameForm players={players} gameTypes={gameTypes} tournaments={tournaments} defaultValues={tournamentId ? { tournamentId } : undefined} onSubmit={handleSubmit} loading={loading} error={error} />
     </div>
   )
 }

@@ -18,11 +18,15 @@ import { Route as TournamentsSlugRouteImport } from './routes/tournaments.$slug'
 import { Route as PlayersIdRouteImport } from './routes/players.$id'
 import { Route as GamesIdRouteImport } from './routes/games.$id'
 import { Route as ApiUploadRouteImport } from './routes/api/upload'
+import { Route as ApiMediaRouteImport } from './routes/api/media'
 import { Route as AdminTournamentsRouteImport } from './routes/admin.tournaments'
 import { Route as AdminPlayersRouteImport } from './routes/admin.players'
 import { Route as AdminLoginRouteImport } from './routes/admin/login'
 import { Route as AdminGamesRouteImport } from './routes/admin.games'
 import { Route as AdminGameTypesRouteImport } from './routes/admin.game-types'
+import { Route as AdminTournamentsIndexRouteImport } from './routes/admin.tournaments.index'
+import { Route as AdminPlayersIndexRouteImport } from './routes/admin.players.index'
+import { Route as AdminGamesIndexRouteImport } from './routes/admin.games.index'
 import { Route as GamesIdRegisterTimeRouteImport } from './routes/games.$id.register-time'
 import { Route as GamesIdBracketRouteImport } from './routes/games.$id.bracket'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth.$'
@@ -78,6 +82,11 @@ const ApiUploadRoute = ApiUploadRouteImport.update({
   path: '/api/upload',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiMediaRoute = ApiMediaRouteImport.update({
+  id: '/api/media',
+  path: '/api/media',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminTournamentsRoute = AdminTournamentsRouteImport.update({
   id: '/tournaments',
   path: '/tournaments',
@@ -102,6 +111,21 @@ const AdminGameTypesRoute = AdminGameTypesRouteImport.update({
   id: '/game-types',
   path: '/game-types',
   getParentRoute: () => AdminRoute,
+} as any)
+const AdminTournamentsIndexRoute = AdminTournamentsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminTournamentsRoute,
+} as any)
+const AdminPlayersIndexRoute = AdminPlayersIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminPlayersRoute,
+} as any)
+const AdminGamesIndexRoute = AdminGamesIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminGamesRoute,
 } as any)
 const GamesIdRegisterTimeRoute = GamesIdRegisterTimeRouteImport.update({
   id: '/register-time',
@@ -158,6 +182,7 @@ export interface FileRoutesByFullPath {
   '/admin/login': typeof AdminLoginRoute
   '/admin/players': typeof AdminPlayersRouteWithChildren
   '/admin/tournaments': typeof AdminTournamentsRouteWithChildren
+  '/api/media': typeof ApiMediaRoute
   '/api/upload': typeof ApiUploadRoute
   '/games/$id': typeof GamesIdRouteWithChildren
   '/players/$id': typeof PlayersIdRoute
@@ -170,6 +195,9 @@ export interface FileRoutesByFullPath {
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/games/$id/bracket': typeof GamesIdBracketRoute
   '/games/$id/register-time': typeof GamesIdRegisterTimeRoute
+  '/admin/games/': typeof AdminGamesIndexRoute
+  '/admin/players/': typeof AdminPlayersIndexRoute
+  '/admin/tournaments/': typeof AdminTournamentsIndexRoute
   '/admin/games/$id/edit': typeof AdminGamesIdEditRoute
   '/admin/players/$id/edit': typeof AdminPlayersIdEditRoute
   '/admin/tournaments/$id/edit': typeof AdminTournamentsIdEditRoute
@@ -178,10 +206,8 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/achievements': typeof AchievementsRoute
   '/admin/game-types': typeof AdminGameTypesRoute
-  '/admin/games': typeof AdminGamesRouteWithChildren
   '/admin/login': typeof AdminLoginRoute
-  '/admin/players': typeof AdminPlayersRouteWithChildren
-  '/admin/tournaments': typeof AdminTournamentsRouteWithChildren
+  '/api/media': typeof ApiMediaRoute
   '/api/upload': typeof ApiUploadRoute
   '/games/$id': typeof GamesIdRouteWithChildren
   '/players/$id': typeof PlayersIdRoute
@@ -194,6 +220,9 @@ export interface FileRoutesByTo {
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/games/$id/bracket': typeof GamesIdBracketRoute
   '/games/$id/register-time': typeof GamesIdRegisterTimeRoute
+  '/admin/games': typeof AdminGamesIndexRoute
+  '/admin/players': typeof AdminPlayersIndexRoute
+  '/admin/tournaments': typeof AdminTournamentsIndexRoute
   '/admin/games/$id/edit': typeof AdminGamesIdEditRoute
   '/admin/players/$id/edit': typeof AdminPlayersIdEditRoute
   '/admin/tournaments/$id/edit': typeof AdminTournamentsIdEditRoute
@@ -208,6 +237,7 @@ export interface FileRoutesById {
   '/admin/login': typeof AdminLoginRoute
   '/admin/players': typeof AdminPlayersRouteWithChildren
   '/admin/tournaments': typeof AdminTournamentsRouteWithChildren
+  '/api/media': typeof ApiMediaRoute
   '/api/upload': typeof ApiUploadRoute
   '/games/$id': typeof GamesIdRouteWithChildren
   '/players/$id': typeof PlayersIdRoute
@@ -220,6 +250,9 @@ export interface FileRoutesById {
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/games/$id/bracket': typeof GamesIdBracketRoute
   '/games/$id/register-time': typeof GamesIdRegisterTimeRoute
+  '/admin/games/': typeof AdminGamesIndexRoute
+  '/admin/players/': typeof AdminPlayersIndexRoute
+  '/admin/tournaments/': typeof AdminTournamentsIndexRoute
   '/admin/games/$id/edit': typeof AdminGamesIdEditRoute
   '/admin/players/$id/edit': typeof AdminPlayersIdEditRoute
   '/admin/tournaments/$id/edit': typeof AdminTournamentsIdEditRoute
@@ -235,6 +268,7 @@ export interface FileRouteTypes {
     | '/admin/login'
     | '/admin/players'
     | '/admin/tournaments'
+    | '/api/media'
     | '/api/upload'
     | '/games/$id'
     | '/players/$id'
@@ -247,6 +281,9 @@ export interface FileRouteTypes {
     | '/api/auth/$'
     | '/games/$id/bracket'
     | '/games/$id/register-time'
+    | '/admin/games/'
+    | '/admin/players/'
+    | '/admin/tournaments/'
     | '/admin/games/$id/edit'
     | '/admin/players/$id/edit'
     | '/admin/tournaments/$id/edit'
@@ -255,10 +292,8 @@ export interface FileRouteTypes {
     | '/'
     | '/achievements'
     | '/admin/game-types'
-    | '/admin/games'
     | '/admin/login'
-    | '/admin/players'
-    | '/admin/tournaments'
+    | '/api/media'
     | '/api/upload'
     | '/games/$id'
     | '/players/$id'
@@ -271,6 +306,9 @@ export interface FileRouteTypes {
     | '/api/auth/$'
     | '/games/$id/bracket'
     | '/games/$id/register-time'
+    | '/admin/games'
+    | '/admin/players'
+    | '/admin/tournaments'
     | '/admin/games/$id/edit'
     | '/admin/players/$id/edit'
     | '/admin/tournaments/$id/edit'
@@ -284,6 +322,7 @@ export interface FileRouteTypes {
     | '/admin/login'
     | '/admin/players'
     | '/admin/tournaments'
+    | '/api/media'
     | '/api/upload'
     | '/games/$id'
     | '/players/$id'
@@ -296,6 +335,9 @@ export interface FileRouteTypes {
     | '/api/auth/$'
     | '/games/$id/bracket'
     | '/games/$id/register-time'
+    | '/admin/games/'
+    | '/admin/players/'
+    | '/admin/tournaments/'
     | '/admin/games/$id/edit'
     | '/admin/players/$id/edit'
     | '/admin/tournaments/$id/edit'
@@ -305,6 +347,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AchievementsRoute: typeof AchievementsRoute
   AdminRoute: typeof AdminRouteWithChildren
+  ApiMediaRoute: typeof ApiMediaRoute
   ApiUploadRoute: typeof ApiUploadRoute
   GamesIdRoute: typeof GamesIdRouteWithChildren
   PlayersIdRoute: typeof PlayersIdRoute
@@ -378,6 +421,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiUploadRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/media': {
+      id: '/api/media'
+      path: '/api/media'
+      fullPath: '/api/media'
+      preLoaderRoute: typeof ApiMediaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/tournaments': {
       id: '/admin/tournaments'
       path: '/tournaments'
@@ -412,6 +462,27 @@ declare module '@tanstack/react-router' {
       fullPath: '/admin/game-types'
       preLoaderRoute: typeof AdminGameTypesRouteImport
       parentRoute: typeof AdminRoute
+    }
+    '/admin/tournaments/': {
+      id: '/admin/tournaments/'
+      path: '/'
+      fullPath: '/admin/tournaments/'
+      preLoaderRoute: typeof AdminTournamentsIndexRouteImport
+      parentRoute: typeof AdminTournamentsRoute
+    }
+    '/admin/players/': {
+      id: '/admin/players/'
+      path: '/'
+      fullPath: '/admin/players/'
+      preLoaderRoute: typeof AdminPlayersIndexRouteImport
+      parentRoute: typeof AdminPlayersRoute
+    }
+    '/admin/games/': {
+      id: '/admin/games/'
+      path: '/'
+      fullPath: '/admin/games/'
+      preLoaderRoute: typeof AdminGamesIndexRouteImport
+      parentRoute: typeof AdminGamesRoute
     }
     '/games/$id/register-time': {
       id: '/games/$id/register-time'
@@ -481,11 +552,13 @@ declare module '@tanstack/react-router' {
 
 interface AdminGamesRouteChildren {
   AdminGamesNewRoute: typeof AdminGamesNewRoute
+  AdminGamesIndexRoute: typeof AdminGamesIndexRoute
   AdminGamesIdEditRoute: typeof AdminGamesIdEditRoute
 }
 
 const AdminGamesRouteChildren: AdminGamesRouteChildren = {
   AdminGamesNewRoute: AdminGamesNewRoute,
+  AdminGamesIndexRoute: AdminGamesIndexRoute,
   AdminGamesIdEditRoute: AdminGamesIdEditRoute,
 }
 
@@ -495,11 +568,13 @@ const AdminGamesRouteWithChildren = AdminGamesRoute._addFileChildren(
 
 interface AdminPlayersRouteChildren {
   AdminPlayersNewRoute: typeof AdminPlayersNewRoute
+  AdminPlayersIndexRoute: typeof AdminPlayersIndexRoute
   AdminPlayersIdEditRoute: typeof AdminPlayersIdEditRoute
 }
 
 const AdminPlayersRouteChildren: AdminPlayersRouteChildren = {
   AdminPlayersNewRoute: AdminPlayersNewRoute,
+  AdminPlayersIndexRoute: AdminPlayersIndexRoute,
   AdminPlayersIdEditRoute: AdminPlayersIdEditRoute,
 }
 
@@ -509,11 +584,13 @@ const AdminPlayersRouteWithChildren = AdminPlayersRoute._addFileChildren(
 
 interface AdminTournamentsRouteChildren {
   AdminTournamentsNewRoute: typeof AdminTournamentsNewRoute
+  AdminTournamentsIndexRoute: typeof AdminTournamentsIndexRoute
   AdminTournamentsIdEditRoute: typeof AdminTournamentsIdEditRoute
 }
 
 const AdminTournamentsRouteChildren: AdminTournamentsRouteChildren = {
   AdminTournamentsNewRoute: AdminTournamentsNewRoute,
+  AdminTournamentsIndexRoute: AdminTournamentsIndexRoute,
   AdminTournamentsIdEditRoute: AdminTournamentsIdEditRoute,
 }
 
@@ -557,6 +634,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AchievementsRoute: AchievementsRoute,
   AdminRoute: AdminRouteWithChildren,
+  ApiMediaRoute: ApiMediaRoute,
   ApiUploadRoute: ApiUploadRoute,
   GamesIdRoute: GamesIdRouteWithChildren,
   PlayersIdRoute: PlayersIdRoute,

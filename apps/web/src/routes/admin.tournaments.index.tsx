@@ -47,6 +47,9 @@ function AdminTournamentsPage() {
               </div>
             </div>
             <div className="flex gap-2">
+              <Link to="/admin/games/new" search={{ tournamentId: t.id }}>
+                <Button variant="ghost" size="sm">+ Spill</Button>
+              </Link>
               <Link to="/admin/tournaments/$id/edit" params={{ id: t.id }}>
                 <Button variant="ghost" size="sm">Rediger</Button>
               </Link>
