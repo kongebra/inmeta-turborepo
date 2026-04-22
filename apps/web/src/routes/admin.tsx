@@ -1,4 +1,4 @@
-import { createFileRoute, Link, Outlet, useNavigate } from '@tanstack/react-router'
+import { createFileRoute, Link, Outlet, useNavigate, useLocation } from '@tanstack/react-router'
 import { useEffect } from 'react'
 import { useSession, signOut } from '~/lib/auth-client'
 import { Button } from '~/components/nidaros/Button'
@@ -19,12 +19,16 @@ const adminLinks = [
 function AdminLayout() {
   const { data: session, isPending } = useSession()
   const navigate = useNavigate()
+  const { pathname } = useLocation()
+  const isLoginPage = pathname === '/admin/login'
 
   useEffect(() => {
-    if (!isPending && !session) {
+    if (!isPending && !session && !isLoginPage) {
       navigate({ to: '/admin/login' })
     }
-  }, [session, isPending, navigate])
+  }, [session, isPending, navigate, isLoginPage])
+
+  if (isLoginPage) return <Outlet />
 
   if (isPending) {
     return (

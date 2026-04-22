@@ -1,4 +1,4 @@
-import { Link } from '@tanstack/react-router'
+import { Link, useLocation } from '@tanstack/react-router'
 
 const links = [
   { to: '/' as const, label: 'Hjem', exact: true },
@@ -7,6 +7,8 @@ const links = [
 ]
 
 export function Nav() {
+  const { pathname } = useLocation()
+  if (pathname.startsWith('/admin')) return null
   return (
     <nav className="border-b border-[var(--line)] bg-[var(--surface)]">
       <div className="max-w-5xl mx-auto px-4 flex items-center justify-between h-14">

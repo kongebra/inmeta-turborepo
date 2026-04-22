@@ -1,5 +1,5 @@
 // src/routes/_admin.players.tsx
-import { createFileRoute, Link, useNavigate } from '@tanstack/react-router'
+import { createFileRoute, Link, useRouter } from '@tanstack/react-router'
 import { getPlayers } from '~/server/players'
 import { deletePlayer } from '~/server/admin/players'
 import { Button } from '~/components/nidaros/Button'
@@ -13,13 +13,13 @@ export const Route = createFileRoute('/admin/players')({
 
 function AdminPlayersPage() {
   const players = Route.useLoaderData()
-  const navigate = useNavigate()
+  const router = useRouter()
 
   async function handleDelete(id: string, name: string) {
     if (!confirm(`Slett ${name}?`)) return
     try {
       await deletePlayer({ data: id })
-      navigate({ to: '/admin/players' })
+      router.invalidate()
     } catch {
       alert('Kunne ikke slette spilleren. Prøv igjen.')
     }
