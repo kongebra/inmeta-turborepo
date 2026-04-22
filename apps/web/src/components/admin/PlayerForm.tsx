@@ -1,4 +1,4 @@
-import type { Player, GameType } from '../../../generated/prisma/client'
+import type { Player, GameType } from '../../generated/prisma/client'
 import { Button } from '~/components/nidaros/Button'
 
 interface PlayerFormProps {

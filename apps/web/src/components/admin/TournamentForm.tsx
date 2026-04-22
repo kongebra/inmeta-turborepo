@@ -1,6 +1,6 @@
 // src/components/admin/TournamentForm.tsx
 import { Button } from '~/components/nidaros/Button'
-import type { Tournament } from '../../../generated/prisma/client'
+import type { Tournament } from '../../generated/prisma/client'
 
 export interface TournamentFormData {
   name: string; slug: string; status: 'PLANNED' | 'ACTIVE' | 'FINISHED'

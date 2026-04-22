@@ -1,5 +1,5 @@
 // src/components/admin/GameForm.tsx
-import type { Player, GameType, Tournament } from '../../../generated/prisma/client'
+import type { Player, GameType, Tournament } from '../../generated/prisma/client'
 import { Button } from '~/components/nidaros/Button'
 import { ImageUpload } from '~/components/admin/ImageUpload'
 import { useState } from 'react'

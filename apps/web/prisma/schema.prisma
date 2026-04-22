@@ -1,6 +1,6 @@
 generator client {
   provider = "prisma-client"
-  output   = "../generated/prisma"
+  output   = "../src/generated/prisma"
 }
 
 datasource db {
@@ -73,12 +73,12 @@ model Player {
   createdAt       DateTime  @default(now())
   updatedAt       DateTime  @updatedAt
 
-  organizedGames    Game[] @relation("GameOrganizers")
-  participatedGames Game[] @relation("GameParticipants")
-  spectatedGames    Game[] @relation("GameSpectators")
-  firstPlaceGames   Game[] @relation("GameFirstPlace")
-  secondPlaceGames  Game[] @relation("GameSecondPlace")
-  thirdPlaceGames   Game[] @relation("GameThirdPlace")
+  organizedGames    Game[]        @relation("GameOrganizers")
+  participatedGames Game[]        @relation("GameParticipants")
+  spectatedGames    Game[]        @relation("GameSpectators")
+  firstPlaceGames   Game[]        @relation("GameFirstPlace")
+  secondPlaceGames  Game[]        @relation("GameSecondPlace")
+  thirdPlaceGames   Game[]        @relation("GameThirdPlace")
   timeResults       TimeResult[]
   playerBadges      PlayerBadge[]
 }
@@ -105,13 +105,13 @@ model Tournament {
   coverImageUrl  String?
   posterImageUrl String?
 
-  pointParticipation                Int @default(3)
-  pointFirstPlace                   Int @default(3)
-  pointSecondPlace                  Int @default(2)
-  pointThirdPlace                   Int @default(1)
-  pointOrganizedWithParticipation   Int @default(1)
+  pointParticipation                 Int @default(3)
+  pointFirstPlace                    Int @default(3)
+  pointSecondPlace                   Int @default(2)
+  pointThirdPlace                    Int @default(1)
+  pointOrganizedWithParticipation    Int @default(1)
   pointOrganizedWithoutParticipation Int @default(3)
-  pointSpectator                    Int @default(1)
+  pointSpectator                     Int @default(1)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -126,24 +126,24 @@ enum TournamentStatus {
 }
 
 model Game {
-  id           String      @id @default(cuid())
+  id           String       @id @default(cuid())
   name         String
   tournamentId String
-  tournament   Tournament  @relation(fields: [tournamentId], references: [id])
+  tournament   Tournament   @relation(fields: [tournamentId], references: [id])
   gameTypeId   String?
-  gameType     GameType?   @relation(fields: [gameTypeId], references: [id])
+  gameType     GameType?    @relation(fields: [gameTypeId], references: [id])
   date         DateTime?
-  status       GameStatus  @default(PLANNED)
+  status       GameStatus   @default(PLANNED)
   location     String?
   duration     Int?
-  format       GameFormat  @default(PLACEMENT)
+  format       GameFormat   @default(PLACEMENT)
   bracketType  BracketType?
   bracketData  Json?
   heroImageUrl String?
   story        String?
-  isDone       Boolean     @default(false)
-  createdAt    DateTime    @default(now())
-  updatedAt    DateTime    @updatedAt
+  isDone       Boolean      @default(false)
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
 
   organizers   Player[] @relation("GameOrganizers")
   participants Player[] @relation("GameParticipants")
@@ -198,11 +198,11 @@ model Highlight {
 }
 
 model GameMedia {
-  id      String @id @default(cuid())
-  gameId  String
-  game    Game   @relation(fields: [gameId], references: [id], onDelete: Cascade)
-  url     String
-  order   Int    @default(0)
+  id     String @id @default(cuid())
+  gameId String
+  game   Game   @relation(fields: [gameId], references: [id], onDelete: Cascade)
+  url    String
+  order  Int    @default(0)
 }
 
 model Badge {
@@ -238,9 +238,9 @@ model PlayerBadge {
 }
 
 model SiteSettings {
-  id          Int      @id @default(1)
-  accentColor String   @default("neon")
-  themeMode   String   @default("system")
+  id          Int    @id @default(1)
+  accentColor String @default("neon")
+  themeMode   String @default("system")
 
   showTettasteDuell       Boolean @default(true)
   showLengstePodiumStripe Boolean @default(true)
