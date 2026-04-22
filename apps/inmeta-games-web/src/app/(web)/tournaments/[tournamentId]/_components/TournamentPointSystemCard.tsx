@@ -1,60 +1,34 @@
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { TournamentDetails } from "@/lib/sanity/types";
 import React from "react";
 
-type Props = {
-  readonly tournament: TournamentDetails;
-};
+type Props = { readonly tournament: TournamentDetails };
 
 const TournamentPointSystemCard: React.FC<Props> = ({ tournament }) => {
+  const rules = [
+    ["1. plass", tournament.pointRules.firstPlace],
+    ["2. plass", tournament.pointRules.secondPlace],
+    ["3. plass", tournament.pointRules.thirdPlace],
+    ["Deltakelse", tournament.pointRules.participation],
+    ["Arr m/ delta", tournament.pointRules.organizedWithParticipation],
+    ["Arr u/ delta", tournament.pointRules.organizedWithoutParticipation],
+    ["Tilskuer", tournament.pointRules.spectator],
+  ] as [string, number][];
+
   return (
-    <Card className="mb-8">
-      <CardHeader>
-        <CardTitle>Regler</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <dl className="grid grid-cols-4 space-y-1">
-          <dt className="font-semibold col-span-3 lg:col-span-1">1. plass</dt>
-          <dd className="text-right lg:text-left">
-            {tournament.pointRules.firstPlace} poeng
-          </dd>
-
-          <dt className="font-semibold col-span-3 lg:col-span-1">2. plass</dt>
-          <dd className="text-right lg:text-left">
-            {tournament.pointRules.secondPlace} poeng
-          </dd>
-
-          <dt className="font-semibold col-span-3 lg:col-span-1">3. plass</dt>
-          <dd className="text-right lg:text-left">
-            {tournament.pointRules.thirdPlace} poeng
-          </dd>
-
-          <dt className="font-semibold col-span-3 lg:col-span-1">
-            Arrangør (med deltakelse)
-          </dt>
-          <dd className="text-right lg:text-left">
-            {tournament.pointRules.organizedWithParticipation} poeng
-          </dd>
-
-          <dt className="font-semibold col-span-3 lg:col-span-1">
-            Arrangør (uten deltakelse)
-          </dt>
-          <dd className="text-right lg:text-left">
-            {tournament.pointRules.organizedWithoutParticipation} poeng
-          </dd>
-
-          <dt className="font-semibold col-span-3 lg:col-span-1">Deltakelse</dt>
-          <dd className="text-right lg:text-left">
-            {tournament.pointRules.participation} poeng
-          </dd>
-
-          <dt className="font-semibold col-span-3 lg:col-span-1">Tilskuer</dt>
-          <dd className="text-right lg:text-left">
-            {tournament.pointRules.spectator} poeng
-          </dd>
-        </dl>
-      </CardContent>
-    </Card>
+    <details className="bg-n-bg2 border border-n-line-soft group">
+      <summary className="flex items-center justify-between px-4 py-3 cursor-pointer font-mono text-[9px] text-n-ink-dim uppercase tracking-[0.12em] list-none hover:text-n-ink transition-colors">
+        <span>Se poengeregler</span>
+        <span className="group-open:rotate-45 transition-transform inline-block text-base leading-none">+</span>
+      </summary>
+      <div className="px-4 pb-4 grid grid-cols-2 gap-x-6 gap-y-1.5 border-t border-n-line-soft">
+        {rules.map(([label, pts]) => (
+          <div key={label} className="flex justify-between">
+            <span className="font-mono text-[10px] text-n-ink-dim">{label}</span>
+            <span className="font-mono text-[10px] text-n-rust">{pts} p</span>
+          </div>
+        ))}
+      </div>
+    </details>
   );
 };
 

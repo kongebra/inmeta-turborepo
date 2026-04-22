@@ -1,0 +1,4 @@
+-- Initial migration
+-- Run: npx prisma migrate deploy
+-- or: npx prisma db push (for development)
+-- Generated from: prisma/schema.prisma

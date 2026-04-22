@@ -1,0 +1,275 @@
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ── better-auth required models ──────────────────────────────────
+
+model User {
+  id            String    @id @default(cuid())
+  name          String
+  email         String    @unique
+  emailVerified Boolean   @default(false)
+  image         String?
+  role          String    @default("user")
+  banned        Boolean   @default(false)
+  banReason     String?
+  banExpires    DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  sessions      Session[]
+  accounts      Account[]
+
+  @@map("user")
+}
+
+model Session {
+  id             String   @id @default(cuid())
+  expiresAt      DateTime
+  ipAddress      String?
+  userAgent      String?
+  token          String   @unique
+  userId         String
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  impersonatedBy String?
+
+  @@index([userId])
+  @@map("session")
+}
+
+model Account {
+  id                    String    @id @default(cuid())
+  accountId             String
+  providerId            String
+  userId                String
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  expiresAt             DateTime?
+  password              String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+
+  @@index([userId])
+  @@map("account")
+}
+
+model Verification {
+  id         String   @id @default(cuid())
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([identifier])
+  @@map("verification")
+}
+
+// ── Leikan domain models ─────────────────────────────────────────
+
+model Player {
+  id              String    @id @default(cuid())
+  firstName       String
+  lastName        String
+  nickname        String?
+  homeBase        String?
+  funFact         String?
+  imageUrl        String?
+  signatureGameId String?
+  signatureGame   GameType? @relation("PlayerSignatureGame", fields: [signatureGameId], references: [id])
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  organizedGames    Game[]        @relation("GameOrganizers")
+  participatedGames Game[]        @relation("GameParticipants")
+  spectatedGames    Game[]        @relation("GameSpectators")
+  firstPlaceGames   Game[]        @relation("GameFirstPlace")
+  secondPlaceGames  Game[]        @relation("GameSecondPlace")
+  thirdPlaceGames   Game[]        @relation("GameThirdPlace")
+  timeResults       TimeResult[]
+  playerBadges      PlayerBadge[]
+}
+
+model GameType {
+  id        String   @id @default(cuid())
+  name      String
+  slug      String   @unique
+  icon      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  games            Game[]
+  signaturePlayers Player[] @relation("PlayerSignatureGame")
+}
+
+model Tournament {
+  id             String           @id @default(cuid())
+  name           String
+  slug           String           @unique
+  status         TournamentStatus @default(PLANNED)
+  startDate      DateTime?
+  year           Int?
+  coverImageUrl  String?
+  posterImageUrl String?
+
+  pointParticipation                 Int @default(3)
+  pointFirstPlace                    Int @default(3)
+  pointSecondPlace                   Int @default(2)
+  pointThirdPlace                    Int @default(1)
+  pointOrganizedWithParticipation    Int @default(1)
+  pointOrganizedWithoutParticipation Int @default(3)
+  pointSpectator                     Int @default(1)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  games Game[]
+}
+
+enum TournamentStatus {
+  PLANNED
+  ACTIVE
+  FINISHED
+}
+
+model Game {
+  id           String       @id @default(cuid())
+  name         String
+  tournamentId String
+  tournament   Tournament   @relation(fields: [tournamentId], references: [id])
+  gameTypeId   String?
+  gameType     GameType?    @relation(fields: [gameTypeId], references: [id])
+  date         DateTime?
+  status       GameStatus   @default(PLANNED)
+  location     String?
+  duration     Int?
+  format       GameFormat   @default(PLACEMENT)
+  bracketType  BracketType?
+  bracketData  Json?
+  heroImageUrl String?
+  story        String?
+  isDone       Boolean      @default(false)
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+
+  organizers   Player[] @relation("GameOrganizers")
+  participants Player[] @relation("GameParticipants")
+  spectators   Player[] @relation("GameSpectators")
+  firstPlace   Player[] @relation("GameFirstPlace")
+  secondPlace  Player[] @relation("GameSecondPlace")
+  thirdPlace   Player[] @relation("GameThirdPlace")
+
+  timeResults  TimeResult[]
+  highlights   Highlight[]
+  gallery      GameMedia[]
+  playerBadges PlayerBadge[]
+}
+
+enum GameStatus {
+  PLANNED
+  SCHEDULED
+  LIVE
+  DONE
+  CANCELLED
+}
+
+enum GameFormat {
+  PLACEMENT
+  SCORE
+  TIME
+  BRACKET
+}
+
+enum BracketType {
+  SINGLE_ELIMINATION
+  DOUBLE_ELIMINATION
+  ROUND_ROBIN
+}
+
+model TimeResult {
+  id       String @id @default(cuid())
+  gameId   String
+  game     Game   @relation(fields: [gameId], references: [id], onDelete: Cascade)
+  playerId String
+  player   Player @relation(fields: [playerId], references: [id])
+  round    Int
+  lapTime  String
+}
+
+model Highlight {
+  id       String  @id @default(cuid())
+  gameId   String
+  game     Game    @relation(fields: [gameId], references: [id], onDelete: Cascade)
+  quote    String
+  playerId String?
+}
+
+model GameMedia {
+  id     String @id @default(cuid())
+  gameId String
+  game   Game   @relation(fields: [gameId], references: [id], onDelete: Cascade)
+  url    String
+  order  Int    @default(0)
+}
+
+model Badge {
+  id          String      @id @default(cuid())
+  name        String
+  slug        String      @unique
+  description String?
+  icon        String?
+  rarity      BadgeRarity @default(COMMON)
+  criteria    String?
+  createdAt   DateTime    @default(now())
+
+  playerBadges PlayerBadge[]
+}
+
+enum BadgeRarity {
+  COMMON
+  UNCOMMON
+  RARE
+  LEGENDARY
+}
+
+model PlayerBadge {
+  id         String   @id @default(cuid())
+  playerId   String
+  player     Player   @relation(fields: [playerId], references: [id])
+  badgeId    String
+  badge      Badge    @relation(fields: [badgeId], references: [id])
+  gameId     String?
+  game       Game?    @relation(fields: [gameId], references: [id])
+  unlockedAt DateTime
+  note       String?
+}
+
+model SiteSettings {
+  id          Int    @id @default(1)
+  accentColor String @default("neon")
+  themeMode   String @default("system")
+
+  showTettasteDuell       Boolean @default(true)
+  showLengstePodiumStripe Boolean @default(true)
+  showComebackOfTheYear   Boolean @default(true)
+  showDebutantensSjokk    Boolean @default(true)
+  showMestAktivArrangor   Boolean @default(true)
+  showSpellKongar         Boolean @default(true)
+  showBydelskamp          Boolean @default(false)
+  showNemesis             Boolean @default(false)
+  showActivityFeed        Boolean @default(true)
+
+  updatedAt DateTime @updatedAt
+}

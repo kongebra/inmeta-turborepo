@@ -48,14 +48,36 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        n: {
+          bg: "#0c0c0f",
+          bg2: "#15151a",
+          bg3: "#1d1d24",
+          line: "#2c2c35",
+          "line-soft": "#222228",
+          ink: "#f1ebd8",
+          "ink-dim": "#a49e8b",
+          muted: "#6b6658",
+          rust: "#c24a1c",
+          skog: "#4a8a6a",
+          messing: "#d8a94a",
+          solv: "#b7b4a8",
+          bronze: "#b07640",
+          paper: "#e8dcc4",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
+        md: "calc(var(--radius))",
+        sm: "calc(var(--radius))",
       },
       fontFamily: {
         sans: ["var(--font-sans)", ...fontFamily.sans],
+        display: ["var(--font-display)", ...fontFamily.sans],
+        serif: ["var(--font-serif)", ...fontFamily.serif],
+        mono: ["var(--font-mono)", ...fontFamily.mono],
+      },
+      letterSpacing: {
+        widest: "0.12em",
       },
       keyframes: {
         "accordion-down": {
